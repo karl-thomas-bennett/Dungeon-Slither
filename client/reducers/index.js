@@ -5,7 +5,7 @@ import snakeReducer from './snake'
 import tilesReducer from './tiles'
 
 export default combineReducers({
-  game,
-  snake,
-  tiles
+  gameReducer,
+  snakeReducer,
+  tilesReducer
 })
