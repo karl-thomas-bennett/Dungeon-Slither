@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux'
 
-// import stuff from './stuff'
+import gameReducer from './game'
+import snakeReducer from './snake'
+import tilesReducer from './tiles'
 
 export default combineReducers({
-  // stuff
+  game,
+  snake,
+  tiles
 })
