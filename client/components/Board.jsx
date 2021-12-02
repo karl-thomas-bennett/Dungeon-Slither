@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import Tile from './Tile'
 
-function Board (props) {
+function Board(props) {
   const boardSize = 10
   const tiles = []
   for (let i = 1; i <= boardSize; i++) {
@@ -11,11 +11,30 @@ function Board (props) {
       tiles.push(i + ', ' + j)
     }
   }
-  const [keypress, setKeypress] = useState('')
+  const [snakePos, setSnakePos] = useState([0, 0])
+  const handleSnakeDangerously = (key, e) => {
+    console.log(key)
+    switch (key) {
+      case 'w':
+        setSnakePos([snakePos[0], snakePos[1] + 1])
+        break
+      case 'd':
+        setSnakePos([snakePos[0] + 1, snakePos[1]])
+        break
+      case 's':
+        setSnakePos([snakePos[0], snakePos[1] - 1])
+        break
+      case 'a':
+        setSnakePos([snakePos[0] - 1, snakePos[1]])
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
-    <div className = "board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => { console.log(keypress); setKeypress(key) }} />
+    <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
+      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleSnakeDangerously} />
       {tiles.map(item => <Tile key={item} id={item} />)}
     </div>
   )
