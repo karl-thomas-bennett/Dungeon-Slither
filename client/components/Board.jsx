@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { useDispatch, useSelector } from 'react-redux'
+import { setGameState } from '../actions/game'
 import { prototypeLevel } from '../prototype-data'
 import Tile from './Tile'
 
 function Board(props) {
+  const dispatch = useDispatch()
   const boardSize = 20
   // const tiles = []
   // for (let i = 1; i <= boardSize; i++) {
@@ -22,6 +25,7 @@ function Board(props) {
   const [direction, setDirection] = useState('left')
   const [lastDirection, setLastDirection] = useState('left')
   const [toggle, setToggle] = useState(true)
+  const tiles = useSelector(state => state.tiles)
   const handleKeys = (key, e) => {
     switch (key) {
       case 'w':
@@ -66,32 +70,35 @@ function Board(props) {
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break
       case 'down':
         newSnake = [[snake[0][0] + 1, snake[0][1]]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break
       case 'right':
         newSnake = [[snake[0][0], snake[0][1] + 1]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break
       case 'up':
         newSnake = [[snake[0][0] - 1, snake[0][1]]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break;
       default:
         break;
     }
+    const tile = tiles.find(tile => tile.coord === newSnake[0])
+    if (tile === undefined || tile.content[0] !== 'floor') {
+      dispatch(setGameState('lost'))
+    } else {
+      setSnake(newSnake)
+    }
+
   }
 
   return (
