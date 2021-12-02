@@ -18,7 +18,6 @@ const Tile = (props) => {
         props.content.includes('key') ? setItem('purple') :
           props.content.includes('guard') ? setItem('red') : setItem('transparent')
   }, [])
-  //console.log(snakeMap)
 
   return (
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
