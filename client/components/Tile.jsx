@@ -19,6 +19,8 @@ const Tile = (props) => {
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
       <div className='item' style={{ backgroundColor: item }}></div>
     </div>
+  )
+}
 
 // import React from 'react'
 
