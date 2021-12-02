@@ -27,10 +27,9 @@ export const removeItemFromTile = (coord) => {
   }
 }
 
-export const resetLevelEditor = (coord) => {
+export const resetLevelEditor = () => {
   return {
-    type: RESET_LEVEL_EDITOR,
-    coord
+    type: RESET_LEVEL_EDITOR
   }
 }
 

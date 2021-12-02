@@ -29,3 +29,13 @@
 
   display: grid;
 }
+
+.selection-button {
+  background-color: white;
+  color: black;
+}
+
+.selection-button:disabled {
+  background-color: dimgrey;
+  color: white;
+}

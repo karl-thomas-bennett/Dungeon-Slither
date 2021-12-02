@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
       let terrainRemove = state.find(tile => tile.coord === action.coord).content[0]
       return [ ...state, state.find(tile => tile.coord === action.coord).content = [terrainRemove, 'empty'] ]
     case RESET_LEVEL_EDITOR:
-      return initialState
+      return blankSlate(20)
     default:
       return state
   }

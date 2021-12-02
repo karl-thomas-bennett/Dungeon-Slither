@@ -4,14 +4,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setTerrainType, addItemToTile, removeItemFromTile, resetLevelEditor } from '../actions/level-maker'
 
 const TileDesign = (props) => {
-  const gameState = useSelector(store => store.game)
+  const gameState       = useSelector(store => store.game)
   const levelMakerState = useSelector(store => store.levelMaker)
-  const dispatch = useDispatch()
+  const dispatch        = useDispatch()
 
   const [terrainColor, setTerrainColor] = useState ('')
   const [itemColor, setItemColor] = useState('')
   const coord = props.id
-  const itemCheck = ['food', 'key', 'sword', 'guard']
+
+  const terrainCheck = ['floor', 'wall', 'door-in', 'door-out']
+  const itemCheck    = ['food', 'key', 'sword', 'guard']
+  const removeCheck  = ['remove', 'wall', 'door-in', 'door-out']
 
   const checks = () => {
     let content = levelMakerState.find(tile => tile.coord === coord).content
@@ -30,28 +33,13 @@ const TileDesign = (props) => {
 
   useEffect(() => {
     checks()
-  }, [])
-
-  useEffect(() => {
-    checks()
   }, [levelMakerState.find(tile => tile.coord === coord).content])
 
   const clickHandler = () => {
-    // Terrain dispatches
-    if (gameState.selection === 'floor')    { dispatch(setTerrainType(coord, 'floor'))    }
-    if (gameState.selection === 'wall')     { dispatch(setTerrainType(coord, 'wall'))     }
-    if (gameState.selection === 'door-in')  { dispatch(setTerrainType(coord, 'door-in'))  }
-    if (gameState.selection === 'door-out') { dispatch(setTerrainType(coord, 'door-out')) }
-    // Terrain-item dispatches
-    if (gameState.selection === 'wall')     { dispatch(removeItemFromTile(coord))         }
-    if (gameState.selection === 'door-in')  { dispatch(removeItemFromTile(coord))         }
-    if (gameState.selection === 'door-out') { dispatch(removeItemFromTile(coord))         }
-    // Item dispatches
-    if (gameState.selection === 'food')     { dispatch(addItemToTile(coord, 'food'))      }
-    if (gameState.selection === 'key')      { dispatch(addItemToTile(coord, 'key'))       }
-    if (gameState.selection === 'sword')    { dispatch(addItemToTile(coord, 'sword'))     }
-    if (gameState.selection === 'guard')    { dispatch(addItemToTile(coord, 'guard'))     }
-    if (gameState.selection === 'remove')   { dispatch(removeItemFromTile(coord))         }
+    const val = gameState.selection
+    if (terrainCheck.includes(val)) { dispatch(setTerrainType(coord, val)) }
+    if (itemCheck.includes(val))    { dispatch(addItemToTile(coord, val))  }
+    if (removeCheck.includes(val))  { dispatch(removeItemFromTile(coord))  }
   }
 
   return (
