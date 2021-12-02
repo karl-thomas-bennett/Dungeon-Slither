@@ -8,7 +8,7 @@ const BoardPrototype = (props) => {
   return (
     <div className='board' style ={{ gridTemplateColumns: `repeat(20, 1fr)` }}>
       {prototypeLevel.map(tile => 
-        <Tile key={tile.coord} id={DataTransferItemList.coord} content={tile.content} />
+        <Tile key={tile.coord} id={tile.coord} content={tile.content} />
       )}
     </div>
   )

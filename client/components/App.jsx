@@ -5,7 +5,7 @@ import BoardPrototype from './BoardPrototype'
 function App () {
   return (
     <>
-      <BoardPrototype className='board'/>
+      <BoardPrototype className='board' />
     </>
   )
 }

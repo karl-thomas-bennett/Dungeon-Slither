@@ -17,7 +17,7 @@ const Tile = (props) => {
 
   return (
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
-      <div className='item' style={{backgroundColor: item}}></div>
+      <div className='item' style={{ backgroundColor: item }}></div>
     </div>
   )
 }
