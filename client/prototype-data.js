@@ -420,3 +420,16 @@ export const prototypeLevel = [
   { coord: '19,18', content: [ 'wall' ]           },
   { coord: '19,19', content: [ 'wall' ]           }
 ]
+
+export const blankSlate = (dimensions) => {
+  const tiles = []
+  for (let x = 0; x < dimensions; x++) {
+    for (let y = 0; y < dimensions; y++) {
+      tiles.push({
+        coord: `${x},${y}`,
+        content: [ 'wall', 'empty' ]
+      })
+    }
+  }
+  return tiles
+}
