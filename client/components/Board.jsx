@@ -11,21 +11,25 @@ function Board(props) {
       tiles.push(i + ', ' + j)
     }
   }
-  const [snakePos, setSnakePos] = useState([0, 0])
+  const [snake, setSnake] = useState([[2, 5], [3, 5], [4, 5], [5, 5]])
   const handleSnakeDangerously = (key, e) => {
     console.log(key)
     switch (key) {
       case 'w':
-        setSnakePos([snakePos[0], snakePos[1] + 1])
+        setSnake([[snake[0][0], snake[0][1] + 1], [snake[0][0], snake[0][1]],
+        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
         break
       case 'd':
-        setSnakePos([snakePos[0] + 1, snakePos[1]])
+        setSnake([[snake[0][0] + 1, snake[0][1]], [snake[0][0], snake[0][1]],
+        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
         break
       case 's':
-        setSnakePos([snakePos[0], snakePos[1] - 1])
+        setSnake([[snake[0][0], snake[0][1] - 1], [snake[0][0], snake[0][1]],
+        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
         break
       case 'a':
-        setSnakePos([snakePos[0] - 1, snakePos[1]])
+        setSnake([[snake[0][0] - 1, snake[0][1]], [snake[0][0], snake[0][1]],
+        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
         break;
       default:
         break;
@@ -35,7 +39,7 @@ function Board(props) {
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleSnakeDangerously} />
-      {tiles.map(item => <Tile key={item} id={item} />)}
+      {tiles.map(item => <Tile key={item} id={item} snake={snake} />)}
     </div>
   )
 }
