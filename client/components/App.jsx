@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
-import Board from './Board'
+import BoardPrototype from './BoardPrototype'
+import BoardDesign from './BoardDesign'
+import LevelEditor from './LevelEditor'
 
-const App = () => {
+function App () {
   return (
-    <Board className="board" />
+    <>
+      {/* <BoardPrototype className='board' /> */}
+      {/* <BoardDesign className='board' /> */}
+      <LevelEditor />
+    </>
   )
 }
 
