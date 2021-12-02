@@ -11,7 +11,13 @@ function Board(props) {
     }
   }
 
-  const [snake, setSnake] = useState([[2, 5], [3, 5], [4, 5], [5, 5]])
+  let initial = []
+  const size = 10
+  for (let i = 0; i < size; i++) {
+    initial = [...initial, [i, 5]]
+  }
+
+  const [snake, setSnake] = useState(initial)
   const [direction, setDirection] = useState('left')
   const [lastDirection, setLastDirection] = useState('left')
   const [toggle, setToggle] = useState(true)
@@ -52,22 +58,35 @@ function Board(props) {
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
+    let newSnake = 0
     switch (direction) {
       case 'up':
-        setSnake([[snake[0][0], snake[0][1] - 1], [snake[0][0], snake[0][1]],
-        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
+        newSnake = [[snake[0][0], snake[0][1] - 1]]
+        for (let i = 0; i < size - 1; i++) {
+          newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
+        }
+        setSnake(newSnake)
         break
       case 'right':
-        setSnake([[snake[0][0] + 1, snake[0][1]], [snake[0][0], snake[0][1]],
-        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
+        newSnake = [[snake[0][0] + 1, snake[0][1]]]
+        for (let i = 0; i < size - 1; i++) {
+          newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
+        }
+        setSnake(newSnake)
         break
       case 'down':
-        setSnake([[snake[0][0], snake[0][1] + 1], [snake[0][0], snake[0][1]],
-        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
+        newSnake = [[snake[0][0], snake[0][1] + 1]]
+        for (let i = 0; i < size - 1; i++) {
+          newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
+        }
+        setSnake(newSnake)
         break
       case 'left':
-        setSnake([[snake[0][0] - 1, snake[0][1]], [snake[0][0], snake[0][1]],
-        [snake[1][0], snake[1][1]], [snake[2][0], snake[2][1]]])
+        newSnake = [[snake[0][0] - 1, snake[0][1]]]
+        for (let i = 0; i < size - 1; i++) {
+          newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
+        }
+        setSnake(newSnake)
         break;
       default:
         break;
