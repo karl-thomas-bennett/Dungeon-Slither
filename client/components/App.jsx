@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import BoardPrototype from './BoardPrototype'
 import BoardDesign from './BoardDesign'
