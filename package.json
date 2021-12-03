@@ -77,5 +77,8 @@
     "react-keyboard-event-handler": "^1.5.4",
     "react-timer-hook": "^3.0.5",
     "superagent": "^6.1.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
