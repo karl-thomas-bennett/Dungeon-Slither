@@ -16,7 +16,11 @@
     "dev:server": "nodemon --watch server server/index.js",
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
-    "lint": "eslint --ext .js,.jsx ."
+    "lint": "eslint --ext .js,.jsx .",
+    "postinstall": "npm run knex migrate:latest",
+    "h:migrate": "heroku run npm run knex migrate:latest",
+    "h:rollback": "heroku run npm run knex migrate:rollback",
+    "h:seed": "heroku run npm run knex seed:run"
   },
   "keywords": [
     "fullstack"
