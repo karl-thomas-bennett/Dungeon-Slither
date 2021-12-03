@@ -72,8 +72,8 @@ export default [
   {
     name: 'body-horizontal',
     cases: [
-      { name: 'body-left-left', flipped: false },
-      { name: 'body-right-right', flipped: true },
+      { name: 'body-left-left', flipped: true },
+      { name: 'body-right-right', flipped: false },
     ]
   },
   {
