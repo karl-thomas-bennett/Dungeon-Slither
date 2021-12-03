@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import SnakeSegment from './SnakeSegment'
 
 const Tile = (props) => {
   const [style, setStyle] = useState('')
@@ -26,9 +27,7 @@ const Tile = (props) => {
 
         snakeMap.includes(props.id) &&
         (
-          <svg viewBox="0 0 110 110">
-            <use href="assets.svg#head"></use>
-          </svg>
+          <SnakeSegment snake={props.snake} pos={props.id.split(',').map(v => Number(v))} />
         )
       }
     </div>
