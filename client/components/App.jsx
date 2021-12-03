@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
+import MainMenu from './MainMenu'
 import BoardPrototype from './BoardPrototype'
-import BoardDesign from './BoardDesign'
 import LevelEditor from './LevelEditor'
+import Fog from './Fog'
 
 function App () {
   return (
     <>
-      {/* <BoardPrototype className='board' /> */}
-      {/* <BoardDesign className='board' /> */}
-      <LevelEditor />
-    </>
+      <Routes>
+        <Route path='/' element={<MainMenu />} />
+        <Route path='/game' element={<BoardPrototype />} />
+        <Route path='/editor' element={<LevelEditor />} />
+      </Routes>
+      <Fog />
+  </>
   )
 }
 

@@ -4,7 +4,7 @@ export const prototypeLevel = [
   { coord: '0,1',   content: [ 'wall', 'empty' ]     },
   { coord: '0,2',   content: [ 'wall', 'empty' ]     },
   { coord: '0,3',   content: [ 'door-in', 'empty' ]  },
-  { coord: '0,4',   content: [ 'door-in', 'empty' ]  },
+  { coord: '0,4',   content: [ 'wall', 'empty' ]     },
   { coord: '0,5',   content: [ 'wall', 'empty' ]     },
   { coord: '0,6',   content: [ 'wall', 'empty' ]     },
   { coord: '0,7',   content: [ 'wall', 'empty' ]     },
