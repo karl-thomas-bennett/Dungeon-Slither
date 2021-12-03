@@ -77,7 +77,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.17",
-    "pg": "^8.5.1",
+    "pg": "^8.7.1",
     "react-keyboard-event-handler": "^1.5.4",
     "react-timer-hook": "^3.0.5",
     "superagent": "^6.1.0"
