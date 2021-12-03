@@ -16,8 +16,8 @@ function Board(props) {
   // }
 
   let initial = []
-  const size = 10
-  for (let i = 0; i < size; i++) {
+  const size = 6
+  for (let i = 2; i < size + 2; i++) {
     initial = [...initial, [i, 5]]
   }
 
@@ -25,6 +25,7 @@ function Board(props) {
   const [direction, setDirection] = useState('left')
   const [lastDirection, setLastDirection] = useState('left')
   const [toggle, setToggle] = useState(true)
+  const gameState = useSelector(state => state.game.gameState)
   const tiles = useSelector(state => state.tiles)
   const handleKeys = (key, e) => {
     switch (key) {
@@ -63,7 +64,7 @@ function Board(props) {
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
-    let newSnake = 0
+    let newSnake = []
     switch (direction) {
       case 'left':
         newSnake = [[snake[0][0], snake[0][1] - 1]]
@@ -92,12 +93,17 @@ function Board(props) {
       default:
         break;
     }
-    const tile = tiles.find(tile => tile.coord === newSnake[0])
-    if (tile === undefined || tile.content[0] !== 'floor') {
-      dispatch(setGameState('lost'))
-    } else {
-      setSnake(newSnake)
+
+    if (gameState === 'playing') {
+      const tile = tiles.find(tile => tile.coord === newSnake[0].join())
+      const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
+      if (tile === undefined || tile.content[0] !== 'floor' || heads.length > 1) {
+        dispatch(setGameState('lost'))
+      } else {
+        setSnake(newSnake)
+      }
     }
+
 
   }
 
