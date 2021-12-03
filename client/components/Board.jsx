@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { useDispatch, useSelector } from 'react-redux'
+import { setGameState } from '../actions/game'
 import { prototypeLevel } from '../prototype-data'
 import Tile from './Tile'
 
 function Board(props) {
+  const dispatch = useDispatch()
   const boardSize = 20
   // const tiles = []
   // for (let i = 1; i <= boardSize; i++) {
@@ -13,8 +16,8 @@ function Board(props) {
   // }
 
   let initial = []
-  const size = 10
-  for (let i = 0; i < size; i++) {
+  const size = 6
+  for (let i = 2; i < size + 2; i++) {
     initial = [...initial, [i, 5]]
   }
 
@@ -22,6 +25,8 @@ function Board(props) {
   const [direction, setDirection] = useState('left')
   const [lastDirection, setLastDirection] = useState('left')
   const [toggle, setToggle] = useState(true)
+  const gameState = useSelector(state => state.game.gameState)
+  const tiles = useSelector(state => state.tiles)
   const handleKeys = (key, e) => {
     switch (key) {
       case 'w':
@@ -59,39 +64,47 @@ function Board(props) {
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
-    let newSnake = 0
+    let newSnake = []
     switch (direction) {
       case 'left':
         newSnake = [[snake[0][0], snake[0][1] - 1]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break
       case 'down':
         newSnake = [[snake[0][0] + 1, snake[0][1]]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break
       case 'right':
         newSnake = [[snake[0][0], snake[0][1] + 1]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break
       case 'up':
         newSnake = [[snake[0][0] - 1, snake[0][1]]]
         for (let i = 0; i < size - 1; i++) {
           newSnake = [...newSnake, [snake[i][0], snake[i][1]]]
         }
-        setSnake(newSnake)
         break;
       default:
         break;
     }
+
+    if (gameState === 'playing') {
+      const tile = tiles.find(tile => tile.coord === newSnake[0].join())
+      const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
+      if (tile === undefined || tile.content[0] !== 'floor' || heads.length > 1) {
+        dispatch(setGameState('lost'))
+      } else {
+        setSnake(newSnake)
+      }
+    }
+
+
   }
 
   return (
