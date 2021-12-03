@@ -31,7 +31,7 @@ function getSegment(prev, current, next) {
   if (next === undefined) {
     return 'tail-' + getDirection(current, prev)
   }
-  return 'body-' + getDirection(current, prev) + '-' + getDirection(next, current)
+  return 'body-' + getDirection(next, current) + '-' + getDirection(current, prev)
 }
 
 function getDirection(a, b) {
