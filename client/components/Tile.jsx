@@ -18,7 +18,7 @@ const Tile = (props) => {
       props.content.includes('sword') ? setItem('blue') :
         props.content.includes('key') ? setItem('purple') :
           props.content.includes('guard') ? setItem('red') : setItem('transparent')
-  }, [])
+  }, [props.content])
 
   return (
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
