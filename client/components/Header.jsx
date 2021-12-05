@@ -11,7 +11,7 @@ function Header () {
       </nav>
       <h1>
         <span className='fa fa-leaf' aria-hidden='true' />
-        {' '}Dungeon Crawler Merch{' '}
+        {' '}Sweet As Organics{' '}
         <span className='fa fa-leaf' aria-hidden='true' />
       </h1>
     </>
