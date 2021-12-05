@@ -8,7 +8,7 @@ const reducer = (state = initialState, action) => {
     case 'ADD_TILE':
       return [...state, action.tile]
     case SET_TILE_CONTENT:
-      return [...state, state.find(tile => tile.coord === action.coord).content = action.content]
+      return state.map(tile => tile.coord === action.coord ? { ...tile, content: action.content } : tile)//[...state, state.find(tile => tile.coord === action.coord).content = action.content]
     case 'RESET':
       return initialState
     default:

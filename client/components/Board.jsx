@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
-import { setGameState } from '../actions/game'
-import { prototypeLevel } from '../prototype-data'
+import { setGameState, setTileContent } from '../actions/game'
 import Tile from './Tile'
 
 function Board(props) {
@@ -95,12 +94,15 @@ function Board(props) {
     }
 
     if (gameState === 'playing') {
-      const tile = tiles.find(tile => tile.coord === newSnake[0].join())
+      const newHeadTile = tiles.find(tile => tile.coord === newSnake[0].join())
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
-      if (tile === undefined || tile.content[0] !== 'floor' || heads.length > 1) {
+      if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
         dispatch(setGameState('lost'))
       } else {
         setSnake(newSnake)
+        if (newHeadTile.content.includes('food')) {
+          dispatch(setTileContent(newHeadTile.coord, newHeadTile.content.map(item => item === 'food' ? 'empty' : item)))
+        }
       }
     }
 
@@ -110,7 +112,7 @@ function Board(props) {
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleKeys} />
-      {prototypeLevel.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} />)}
+      {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} />)}
     </div>
   )
 }
