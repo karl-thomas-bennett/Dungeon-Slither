@@ -15,7 +15,7 @@ function Board(props) {
   // }
 
   let initial = []
-  const size = 6
+  const [size, setSize] = useState(6)
   for (let i = 2; i < size + 2; i++) {
     initial = [...initial, [i, 5]]
   }
@@ -102,6 +102,7 @@ function Board(props) {
         setSnake(newSnake)
         if (newHeadTile.content.includes('food')) {
           dispatch(setTileContent(newHeadTile.coord, newHeadTile.content.map(item => item === 'food' ? 'empty' : item)))
+          setSize(size + 1)
         }
       }
     }
