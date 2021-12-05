@@ -4,7 +4,8 @@ module.exports = {
   listProducts
 }
 
-function listProducts (db = connection) {
+function listProducts( db = connection ){
+  console.log( 'getting products from the database')
   return db('products')
-    .select()
+  .select()
 }
