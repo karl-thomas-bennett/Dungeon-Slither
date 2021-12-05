@@ -5,8 +5,8 @@ import imageDictionary from '../utils/imageDictionary'
 function ImageLoader() {
   return (
     <>
-      {imageDictionary.map(image => {
-        <img src={image.name} alt="Snake" display='none' />
+      {imageDictionary.map((image, i) => {
+        return <img key={i} src={'/segments/' + image.name + '.png'} alt="Snake" style={{ display: "none" }} />
       })}
     </>
   )
