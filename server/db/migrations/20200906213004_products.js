@@ -1,12 +1,18 @@
-exports.up = knex => {
-  return knex.schema.createTable('products', table => {
-    table.increments('id')
-    table.string('description')
-    table.string('name')
-    table.string('country')
-  })
-}
+const e = require("express");
 
-exports.down = knex => {
+exports.up = function(knex) {
+  return knex.schema.createTable('products', table => {
+    table.increments( 'id' )
+    table.string ( 'name' )
+    table.string ( 'category' )
+    table.string( 'description' )
+    table.decimal( 'price' )
+    table.integer( 'stock' )
+    table.string( 'img' )
+    table.boolean( 'active' )
+  })
+};
+
+exports.down = function(knex) {
   return knex.schema.dropTable('products')
-}
+};
