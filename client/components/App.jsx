@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 // import BoardDesign from './BoardDesign'
 // import LevelEditor from './LevelEditor'
 import Board from './Board'
+import ImageLoader from './ImageLoader'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       {/* <BoardPrototype className='board' /> */}
       {/* <BoardDesign className='board' /> */}
       {/* <LevelEditor /> */}
+      <ImageLoader />
       <Board />
     </>
   )
