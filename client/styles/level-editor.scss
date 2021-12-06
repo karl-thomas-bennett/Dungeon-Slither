@@ -83,12 +83,27 @@
 
   padding-left: 20px;
   padding-right: 20px;
+  position: relative;
 }
 
 .selection-button:disabled {
   background-color: #ED994F;
   color: white;
   border-color: #B65937;
+}
+
+.selection-legend {
+  background-color: grey;
+  border-style: dashed;
+  border-color: rgb(50, 50, 50);
+  border-width: 1px;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 35%;
+  aspect-ratio: 1/1;
+  transform: translate(100%, -50%)
 }
 
 .border1 {
