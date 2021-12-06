@@ -114,7 +114,7 @@ function Board(props) {
   useEffect(() => {
     const timer = setInterval(() => {
       setToggle(toggle => !toggle)
-    }, 200)
+    }, 300)
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
@@ -167,6 +167,8 @@ function Board(props) {
           handleItems(['key', 'sword'], newHeadTile)
         }
       }
+    } else if (gameState === 'won') {
+      setSnake(newSnake)
     }
   }
 
@@ -175,7 +177,7 @@ function Board(props) {
 
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleKeys} />
+      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? handleKeys(key, e) : ''} />
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={handleDrop} />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
     </div>
