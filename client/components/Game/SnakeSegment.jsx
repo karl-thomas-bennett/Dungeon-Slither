@@ -1,5 +1,5 @@
 import React from 'react'
-import imageDict from '../utils/imageDictionary'
+import imageDict from '../../utils/imageDictionary'
 
 const SnakeSegment = ({ snake, pos }) => {
   const i = snake.findIndex(segment => segment[0] === pos[0] && segment[1] === pos[1])

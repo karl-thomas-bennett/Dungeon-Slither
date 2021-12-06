@@ -1,6 +1,6 @@
 import React from 'react'
 
-import imageDictionary from '../utils/imageDictionary'
+import imageDictionary from '../../utils/imageDictionary'
 
 function ImageLoader() {
   return (

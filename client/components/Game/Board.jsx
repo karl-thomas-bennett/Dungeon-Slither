@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
-import { setGameState, setTileContent } from '../actions/game'
+import { setGameState, setTileContent } from '../../actions/game'
 import Tile from './Tile'
 
 function Board(props) {
