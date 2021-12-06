@@ -136,7 +136,7 @@ function Board(props) {
       const newHeadTile = tiles.find(tile => tile.coord === newSnake[0].join())
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
       if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
-        dispatch(setGameState('lost'))
+        dispatch(setGameState('lost - concussion is death, who knew?'))
       } else {
         setSnake(newSnake)
         if (holding === 'none' && newHeadTile.content.includes('food')) {

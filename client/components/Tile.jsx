@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { setTileContent } from '../actions/game'
+import { setGameState, setTileContent } from '../actions/game'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
@@ -30,6 +30,14 @@ const Tile = (props) => {
     if (props.content.includes('guard')) {
       if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && props.item === 'sword') {
         dispatch(setTileContent(props.id, props.content.map(item => item === 'guard' ? 'empty' : item)))
+      }
+      if (props.snake[0][0] === pos[0] && props.snake[0][1] === pos[1]) {
+        dispatch(setGameState('lost - killed by guard'))
+      }
+    }
+    if (props.content.includes('door-out')) {
+      if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && props.item === 'key') {
+        dispatch(setGameState('won'))
       }
     }
   }, [props.snake])
