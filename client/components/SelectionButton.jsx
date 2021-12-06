@@ -10,7 +10,9 @@ const SelectionButton = (props) => {
   const selectionHandler = (selection) => { dispatch(setSelection(selection)) }
 
   return (
-    <button className='selection-button' disabled={selection === props.value} onClick={() => selectionHandler(props.value)}>{props.name}</button>
+    <button className='selection-button' disabled={selection === props.value} onClick={() => selectionHandler(props.value)}>{props.name}
+      <div className='selection-legend'></div>
+    </button>
   )
 }
 
