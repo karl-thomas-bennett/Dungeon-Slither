@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { setGameState, setTileContent } from '../actions/game'
+import { setGameState, setTileContent } from '../../actions/game'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
