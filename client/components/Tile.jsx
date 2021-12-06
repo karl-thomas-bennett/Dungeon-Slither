@@ -24,10 +24,10 @@ const Tile = (props) => {
           props.content.includes('guard') ? setItem('red') : setItem('transparent')
   }, [props.content])
 
-  const itemPos = getItemPos(props.snake[0], props.direction)
+  const itemPos = props.snake.length > 0 ? getItemPos(props.snake[0], props.direction) : [-1, -1]
   const pos = props.id.split(',').map(v => Number(v))
   useEffect(() => {
-    if (props.content.includes('guard')) {
+    if (props.content.includes('guard') && props.snake.length > 0) {
       if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && props.item === 'sword') {
         dispatch(setTileContent(props.id, props.content.map(item => item === 'guard' ? 'empty' : item)))
       }
