@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
-import { addOrder } from '../actions/order'
+import { addOrder } from '../actions/orders'
 
 import CartItem from './CartItem'
 
@@ -14,7 +14,6 @@ function Cart (props) {
   const dispatch = useDispatch()
 
   function submitCart (evt) {
-//    console.log('coming soon!')
     evt.preventDefault()
     dispatch(addOrder(cart))
   }

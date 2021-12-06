@@ -6,7 +6,7 @@ const router = express.Router()
 
 module.exports = router
 
-router.get('/orders', (req, res) => {
+router.get('/', (req, res) => {
   db.listOrders()
     .then((orders) => {
       res.json(orders)
@@ -18,8 +18,6 @@ router.get('/orders', (req, res) => {
 })
 
 router.post('/', (req,res) =>{
-  console.log('hitting order post route')
-  console.log(req.body.orderRequest)
   db.addOrder(req.body.orderRequest)
   .then( () => {
          res.status(201)
