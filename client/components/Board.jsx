@@ -23,6 +23,7 @@ function Board(props) {
   const [snake, setSnake] = useState(initial)
   const [direction, setDirection] = useState('left')
   const [lastDirection, setLastDirection] = useState('left')
+  const [holding, setHolding] = useState('none')
   const [toggle, setToggle] = useState(true)
   const gameState = useSelector(state => state.game.gameState)
   const tiles = useSelector(state => state.tiles)
@@ -59,7 +60,7 @@ function Board(props) {
   useEffect(() => {
     const timer = setInterval(() => {
       setToggle(toggle => !toggle)
-    }, 400)
+    }, 200)
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
@@ -100,9 +101,17 @@ function Board(props) {
         dispatch(setGameState('lost'))
       } else {
         setSnake(newSnake)
-        if (newHeadTile.content.includes('food')) {
+        if (holding === 'none' && newHeadTile.content.includes('food')) {
           dispatch(setTileContent(newHeadTile.coord, newHeadTile.content.map(item => item === 'food' ? 'empty' : item)))
           setSize(size + 1)
+        }
+        if (holding === 'none') {
+          if (newHeadTile.content.includes('key')) {
+            setHolding('key')
+          }
+          if (newHeadTile.content.includes('sword')) {
+            setHolding('sword')
+          }
         }
       }
     }
@@ -113,7 +122,7 @@ function Board(props) {
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleKeys} />
-      {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} />)}
+      {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
     </div>
   )
 }

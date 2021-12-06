@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
 const Tile = (props) => {
@@ -19,19 +20,36 @@ const Tile = (props) => {
         props.content.includes('key') ? setItem('purple') :
           props.content.includes('guard') ? setItem('red') : setItem('transparent')
   }, [props.content])
-
+  const itemPos = getItemPos(props.snake[0], props.direction)
+  const pos = props.id.split(',').map(v => Number(v))
   return (
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
       <div className='item' style={{ backgroundColor: item }}></div>
       {
-
+        itemPos[0] === pos[0] && itemPos[1] === pos[1] &&
+        props.item !== 'none' && <Item item={props.item} direction={props.direction} />
+      }
+      {
         snakeMap.includes(props.id) &&
         (
-          <SnakeSegment snake={props.snake} pos={props.id.split(',').map(v => Number(v))} />
+          <SnakeSegment snake={props.snake} pos={pos} />
         )
       }
     </div>
   )
+}
+
+function getItemPos(snakeHead, direction) {
+  switch (direction) {
+    case 'left':
+      return [snakeHead[0], snakeHead[1] - 1]
+    case 'right':
+      return [snakeHead[0], snakeHead[1] + 1]
+    case 'up':
+      return [snakeHead[0] - 1, snakeHead[1]]
+    case 'down':
+      return [snakeHead[0] + 1, snakeHead[1]]
+  }
 }
 // import React from 'react'
 
