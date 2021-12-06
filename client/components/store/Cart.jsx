@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
-import { addOrder } from '../actions/orders'
+import { addOrder } from '../../actions/orders'
 
 import CartItem from './CartItem'
 

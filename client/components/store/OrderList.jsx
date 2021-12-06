@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import Order from './Order'
 
-import {fetchOrders} from '../actions/orders'
+import {fetchOrders} from '../../actions/orders'
 import { useDispatch, useSelector } from 'react-redux'
 
 function OrderList ( props ) {

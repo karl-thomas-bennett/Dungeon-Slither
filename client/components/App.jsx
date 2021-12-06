@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import Header from './Header'
-import ErrorMessage from './ErrorMessage'
-import Cart from './Cart'
-import ProductList from './ProductList'
-import OrderList from './OrderList'
-import WaitIndicator from './WaitIndicator'
+import Header from './store/Header'
+import ErrorMessage from './store/ErrorMessage'
+import Cart from './store/Cart'
+import ProductList from './store/ProductList'
+import OrderList from './store/OrderList'
+import WaitIndicator from './store/WaitIndicator'
 
 function App () {
   return (
