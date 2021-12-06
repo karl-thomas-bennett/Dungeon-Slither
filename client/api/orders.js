@@ -10,3 +10,10 @@ export function placeOrder( cart ) {
    // .then(res => res.body.newId)
 }
 
+export function getOrders(){
+   console.log('hitting get orders api')
+   return request.get('/api/v1/orders')
+   .then ((res) => res.body
+   
+   )
+}
