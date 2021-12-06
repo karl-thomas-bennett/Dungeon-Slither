@@ -7,4 +7,6 @@ body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-
+@import './board.scss';
+@import './level-editor.scss';
+@import './snake.scss';

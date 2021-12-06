@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-function App () {
+// import BoardPrototype from './BoardPrototype'
+// import BoardDesign from './BoardDesign'
+// import LevelEditor from './LevelEditor'
+import Board from './Game/Board'
+import ImageLoader from './Game/ImageLoader'
+
+function App() {
   return (
     <>
-      <header className="header">
-        <h1>My Collection</h1>
-      </header>
-      <section className="main">
-        {/* add your code here */}
-      </section>
+      {/* <BoardPrototype className='board' /> */}
+      {/* <BoardDesign className='board' /> */}
+      {/* <LevelEditor /> */}
+      <ImageLoader />
+      <Board />
     </>
   )
 }

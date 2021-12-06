@@ -1,0 +1,41 @@
+.editor-board {
+  position: fixed;
+  top: 10%;
+  right: 30%;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  align-content: center;
+}
+
+.editor-header {
+  background-color: lightgrey;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 90%;
+  left: 0;
+}
+
+.editor-selection {
+  background-color: lightgrey;
+
+  position: fixed;
+  top: 10%;
+  right: 0;
+  bottom: 0;
+  left: 70%;
+
+  display: grid;
+}
+
+.selection-button {
+  background-color: white;
+  color: black;
+}
+
+.selection-button:disabled {
+  background-color: dimgrey;
+  color: white;
+}
