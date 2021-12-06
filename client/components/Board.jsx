@@ -63,7 +63,7 @@ function Board(props) {
     const stack = [dropPoint]
     const visited = []
     while (stack.length > 0) {
-      let t = stack.pop()
+      let t = stack.shift()
       visited.push[t.coord]
       if (!t.content.includes('empty')) {
         for (let neighbour of getNeibours(dropPoint.coord)) {
