@@ -52,10 +52,48 @@ function Board(props) {
     }
   }
 
+  const getNeibours = (coord) => {
+    const arrayCoord = coord.split(',').map(a => Number(a))
+    return [[arrayCoord[0] + 1, arrayCoord[1]].join(), [arrayCoord[0] - 1, arrayCoord[1]].join(), [arrayCoord[0], arrayCoord[1] + 1].join(), [arrayCoord[0], arrayCoord[1] - 1].join()]
+  }
+
+  const handleDrop = (key, e) => {
+    setHolding('none')
+    let dropPoint = tiles.find(tile => tile.coord === snake[0].join())
+    const stack = [dropPoint]
+    const visited = []
+    while (stack.length > 0) {
+      let t = stack.pop()
+      visited.push[t.coord]
+      if (!t.content.includes('empty')) {
+        for (let neighbour of getNeibours(dropPoint.coord)) {
+          if (!visited.includes(neighbour)) {
+            stack.push(tiles.find(tile => tile.coord === neighbour))
+          }
+        }
+      } else {
+        dropPoint = t
+        break
+      }
+    }
+    dispatch(setTileContent(dropPoint.coord, dropPoint.content.map(thing => thing === 'empty' ? holding : thing)))
+  }
+
+
+
   useEffect(() => {
     handleSnakeDangerously(direction)
     setLastDirection(direction)
   }, [toggle])
+
+  const handleItems = (items, tile) => {
+    for (let item of items) {
+      if (tile.content.includes(item)) {
+        setHolding(item)
+        dispatch(setTileContent(tile.coord, tile.content.map(thing => thing === item ? 'empty' : thing)))
+      }
+    }
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -106,24 +144,19 @@ function Board(props) {
           setSize(size + 1)
         }
         if (holding === 'none') {
-          if (newHeadTile.content.includes('key')) {
-            setHolding('key')
-          }
-          if (newHeadTile.content.includes('sword')) {
-            setHolding('sword')
-          }
+          handleItems(['key', 'sword'], newHeadTile)
         }
       }
     }
-
-
   }
+
 
 
 
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleKeys} />
+      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={handleDrop} />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
     </div>
   )
