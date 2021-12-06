@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addToCart } from '../actions/cart'
-import { fetchProducts } from '../actions/products'
+import { addToCart } from '../../actions/cart'
+import { fetchProducts } from '../../actions/products'
 
 import ProductListItem from './ProductListItem'
 
@@ -10,6 +10,7 @@ function ProductList (props) {
   const { children, history } = props
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
+  
   useEffect(() => {
     dispatch(fetchProducts())
   }, [])

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import {
   deleteFromCart,
   updateCart
-} from '../actions/cart'
+} from '../../actions/cart'
 
 function CartItem (props) {
   const { name, id, quantity } = props.item

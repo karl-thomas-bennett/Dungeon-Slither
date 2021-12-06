@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { hideError } from '../actions/error'
+import { hideError } from '../../actions/error'
 
 function ErrorMessage (props) {
   function hide () {
