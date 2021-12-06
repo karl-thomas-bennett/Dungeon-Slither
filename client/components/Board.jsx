@@ -119,6 +119,8 @@ function Board(props) {
 
   }
 
+
+
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleKeys} />

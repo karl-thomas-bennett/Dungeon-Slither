@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setTileContent } from '../actions/game'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
 const Tile = (props) => {
+  const dispatch = useDispatch()
   const [style, setStyle] = useState('')
   const [item, setItem] = useState('')
 
@@ -20,8 +23,17 @@ const Tile = (props) => {
         props.content.includes('key') ? setItem('purple') :
           props.content.includes('guard') ? setItem('red') : setItem('transparent')
   }, [props.content])
+
   const itemPos = getItemPos(props.snake[0], props.direction)
   const pos = props.id.split(',').map(v => Number(v))
+  useEffect(() => {
+    if (props.content.includes('guard')) {
+      if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && props.item === 'sword') {
+        dispatch(setTileContent(props.id, props.content.map(item => item === 'guard' ? 'empty' : item)))
+      }
+    }
+  }, [props.snake])
+
   return (
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
       <div className='item' style={{ backgroundColor: item }}></div>
