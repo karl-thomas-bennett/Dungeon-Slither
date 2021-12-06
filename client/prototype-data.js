@@ -337,7 +337,7 @@ export const prototypeLevel = [
   { coord: '15,19', content: ['wall', 'empty'] },
   // ROW 17
   { coord: '16,0', content: ['door-out', 'empty'] },
-  { coord: '16,1', content: ['floor', 'guard'] },
+  { coord: '16,1', content: ['floor', 'empty'] },
   { coord: '16,2', content: ['floor', 'empty'] },
   { coord: '16,3', content: ['floor', 'empty'] },
   { coord: '16,4', content: ['floor', 'empty'] },

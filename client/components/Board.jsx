@@ -16,16 +16,15 @@ function Board(props) {
 
   let initial = []
   const [size, setSize] = useState(6)
-  for (let i = 2; i < size + 2; i++) {
-    initial = [...initial, [i, 5]]
-  }
 
+  const game = useSelector(state => state.game)
+  const gameState = game.gameState
   const [snake, setSnake] = useState(initial)
-  const [direction, setDirection] = useState('left')
+  const [direction, setDirection] = useState(game.direction)
   const [lastDirection, setLastDirection] = useState('left')
   const [holding, setHolding] = useState('none')
   const [toggle, setToggle] = useState(true)
-  const gameState = useSelector(state => state.game.gameState)
+
   const tiles = useSelector(state => state.tiles)
   const handleKeys = (key, e) => {
     switch (key) {
@@ -79,6 +78,23 @@ function Board(props) {
     dispatch(setTileContent(dropPoint.coord, dropPoint.content.map(thing => thing === 'empty' ? holding : thing)))
   }
 
+  const makeSnake = (initial, directionArr) => {
+    for (let i = 1; i < size; i++) {
+      initial = [...initial, [initial[0][0] + i * directionArr[0], initial[0][1] + i * directionArr[1]]]
+    }
+    setSnake(initial)
+  }
+
+  useEffect(() => {
+    let initial = [tiles.find(tile => tile.content.includes('door-in')).coord.split(',').map(a => Number(a))]
+    const dirObj = {
+      down: [-1, 0],
+      up: [1, 0],
+      right: [0, -1],
+      left: [0, 1]
+    }
+    makeSnake(initial, dirObj[direction])
+  }, [])
 
 
   useEffect(() => {
@@ -98,10 +114,13 @@ function Board(props) {
   useEffect(() => {
     const timer = setInterval(() => {
       setToggle(toggle => !toggle)
-    }, 200)
+    }, 300)
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
+    if (snake.length === 0) {
+      return
+    }
     let newSnake = []
     switch (direction) {
       case 'left':
@@ -135,6 +154,7 @@ function Board(props) {
     if (gameState === 'playing') {
       const newHeadTile = tiles.find(tile => tile.coord === newSnake[0].join())
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
+      console.log(newHeadTile.coord)
       if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
         dispatch(setGameState('lost - concussion is death, who knew?'))
       } else {
@@ -147,6 +167,8 @@ function Board(props) {
           handleItems(['key', 'sword'], newHeadTile)
         }
       }
+    } else if (gameState === 'won') {
+      setSnake(newSnake)
     }
   }
 
@@ -155,7 +177,7 @@ function Board(props) {
 
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={handleKeys} />
+      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? handleKeys(key, e) : ''} />
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={handleDrop} />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
     </div>
