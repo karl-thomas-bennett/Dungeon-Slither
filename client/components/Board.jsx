@@ -87,20 +87,13 @@ function Board(props) {
 
   useEffect(() => {
     let initial = [tiles.find(tile => tile.content.includes('door-in')).coord.split(',').map(a => Number(a))]
-    switch (direction) {
-      case 'down':
-        makeSnake(initial.map(pos => [pos[0] + 1, pos[1]]), [-1, 0])
-        break;
-      case 'up':
-        makeSnake(initial.map(pos => [pos[0] - 1, pos[1]]), [1, 0])
-        break;
-      case 'right':
-        makeSnake(initial.map(pos => [pos[0], pos[1] + 1]), [0, -1])
-        break;
-      case 'left':
-        makeSnake(initial.map(pos => [pos[0], pos[1] - 1]), [0, 1])
-        break;
+    const dirObj = {
+      down: [-1, 0],
+      up: [1, 0],
+      right: [0, -1],
+      left: [0, 1]
     }
+    makeSnake(initial, dirObj[direction])
   }, [])
 
 
