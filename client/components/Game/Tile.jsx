@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
+import { getStyle, getItemPos } from '../../utils/tileUtil'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
-const Tile = (props) => {
+const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
   const dispatch = useDispatch()
   const tiles = useSelector(store => store.tiles)
   const [style, setStyle] = useState('')
@@ -13,38 +14,32 @@ const Tile = (props) => {
   const coord = props.id
   const terrain = props.content[0]
 
-  const snakeMap = props.snake.map(segment => {
+  const snakeMap = snake.map(segment => {
     return segment[0] + ',' + segment[1]
   })
 
   useEffect(() => {
-    props.content.includes('floor') ? setStyle('grey') :
-      props.content.includes('wall') ? setStyle('black') :
-        props.content.includes('door-in') ? setStyle('green') : setStyle('red')
+    setStyle(getStyle(content[0]))
+    setItem(getStyle(content[1]))
+  }, [content])
 
-    props.content.includes('food') ? setItem('green') :
-      props.content.includes('sword') ? setItem('blue') :
-        props.content.includes('key') ? setItem('purple') :
-          props.content.includes('guard') ? setItem('red') : setItem('transparent')
-  }, [props.content])
-
-  const itemPos = props.snake.length > 0 ? getItemPos(props.snake[0], props.direction) : [-1, -1]
-  const pos = props.id.split(',').map(v => Number(v))
+  const itemPos = snake.length > 0 ? getItemPos(snake[0], direction) : [-1, -1]
+  const pos = id.split(',').map(v => Number(v))
   useEffect(() => {
-    if (props.content.includes('guard') && props.snake.length > 0) {
-      if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && props.item === 'sword') {
-        dispatch(setTileContent(props.id, props.content.map(item => item === 'guard' ? 'empty' : item)))
+    if (content.includes('guard') && snake.length > 0) {
+      if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && snakeItem === 'sword') {
+        dispatch(setTileContent(id, content.map(item => item === 'guard' ? 'empty' : item)))
       }
-      if (props.snake[0][0] === pos[0] && props.snake[0][1] === pos[1]) {
+      if (snake[0][0] === pos[0] && snake[0][1] === pos[1]) {
         dispatch(setGameState('lost - killed by guard'))
       }
     }
-    if (props.content.includes('door-out')) {
-      if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && props.item === 'key') {
+    if (content.includes('door-out')) {
+      if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && snakeItem === 'key') {
         dispatch(setGameState('won'))
       }
     }
-  }, [props.snake])
+  }, [snake])
 
   useEffect(() => {
     calcImage()
@@ -100,60 +95,21 @@ const Tile = (props) => {
   }
 
   return (
-    <div className='tile' id={props.id} style={{ backgroundColor: style }}>
-      <img src={`/tiles/${tileImg}.png`} className='tile-image'></img>
+    <div className='tile' id={id} style={{ backgroundColor: style }}>
+      <img src={`/tiles/${tileImg}.png`} className='tile-image' />
       <div className='item' style={{ backgroundColor: item }}></div>
       {
         itemPos[0] === pos[0] && itemPos[1] === pos[1] &&
-        props.item !== 'none' && <Item item={props.item} direction={props.direction} />
+        snakeItem !== 'none' && <Item item={snakeItem} direction={direction} />
       }
       {
-        snakeMap.includes(props.id) &&
+        snakeMap.includes(id) &&
         (
-          <SnakeSegment snake={props.snake} pos={pos} />
+          <SnakeSegment snake={snake} pos={pos} />
         )
       }
     </div>
   )
 }
-
-function getItemPos(snakeHead, direction) {
-  switch (direction) {
-    case 'left':
-      return [snakeHead[0], snakeHead[1] - 1]
-    case 'right':
-      return [snakeHead[0], snakeHead[1] + 1]
-    case 'up':
-      return [snakeHead[0] - 1, snakeHead[1]]
-    case 'down':
-      return [snakeHead[0] + 1, snakeHead[1]]
-  }
-}
-// import React from 'react'
-
-// function Tile(props) {
-//   // if (props.snakePos.join(', ') === props.id) {
-//   //   console.log("Hey " + props.snakePos)
-//   // }
-//   // console.log(props.snakePos.join(', ') === props.id)
-//   const snakeMap = props.snake.map(segment => {
-//     return segment[0] + ', ' + segment[1]
-//   })
-//   return (
-//     <div className="tile" id={props.id}>
-//       <svg viewBox="0 0 110 110">
-//         <use href="assets.svg#tile"></use>
-//       </svg>
-//       {
-//         snakeMap.includes(props.id) &&
-//         (
-//           <svg viewBox="0 0 110 110">
-//             <use href="assets.svg#head"></use>
-//           </svg>
-//         )
-//       }
-//     </div>
-//   )
-// }
 
 export default Tile

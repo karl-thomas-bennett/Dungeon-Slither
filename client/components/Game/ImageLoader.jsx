@@ -1,12 +1,12 @@
 import React from 'react'
 
-import imageDictionary from '../../utils/imageDictionary'
+import imageList from '../../utils/imageList'
 
 function ImageLoader() {
   return (
     <>
-      {imageDictionary.map((image, i) => {
-        return <img key={i} src={'/segments/' + image.name + '.png'} alt="Snake" style={{ display: "none" }} />
+      {imageList.map((image, i) => {
+        return <img key={i} src={'/segments/' + image + '.png'} alt="Snake" style={{ display: "none" }} />
       })}
     </>
   )
