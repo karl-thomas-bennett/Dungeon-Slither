@@ -197,7 +197,7 @@ const TileDesign = (props) => {
   }
 
   return (
-    <div className='tile' id={props.id} style={{ backgroundColor: terrainColor }} onClick={clickHandler}>
+    <div className='tile-editor' id={props.id} style={{ backgroundColor: terrainColor }} onClick={clickHandler}>
       <div className='item' style={{ backgroundColor: itemColor }}></div>
     </div>
   )

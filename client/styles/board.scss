@@ -38,6 +38,13 @@ body {
   // border-color: rgb(50, 50, 50);
   // border-width: 1px;
 }
+.tile-editor {
+  position: relative;
+  aspect-ratio: 1/1;
+  border-style: dashed;
+  border-color: rgb(50, 50, 50);
+  border-width: 1px;
+}
 
 .tile svg {
   position: absolute;

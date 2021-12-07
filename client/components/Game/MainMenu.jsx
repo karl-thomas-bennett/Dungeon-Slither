@@ -9,17 +9,17 @@ const MainMenu = () => {
         <img className='logo-img' src='images/Logo.png' alt='Dungeon Slither'></img>
       </div>
       <div className='menu-buttons'>
-        <Link to='/game'  ><button className='menu-button'>
+        <Link to='/levels' ><button className='menu-button'>
           <div className='button-inner'>
-            <p className='button-text'>GAME</p>
+            <p className='button-text'>LEVELS</p>
           </div>
         </button></Link>
-        <Link to='/editor'  ><button className='menu-button'>
+        <Link to='/editor' ><button className='menu-button'>
           <div className='button-inner'>
             <p className='button-text'>EDITOR</p>
           </div>
         </button></Link>
-        <Link to='/store'  ><button className='menu-button'>
+        <Link to='/store' ><button className='menu-button'>
           <div className='button-inner'>
             <p className='button-text'>STORE</p>
           </div>

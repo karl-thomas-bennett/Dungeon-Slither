@@ -52,7 +52,8 @@ const Tile = (props) => {
 
   const calcImage = () => {
     if (terrain === 'floor') {
-      setTileImg('floor-a')
+      const floorArr = ['floor-a', 'floor-b']
+      setTileImg(floorArr[Math.floor(Math.random() * floorArr.length)])
     } else {
       const coordX = Number(coord.split(',')[1])
       const coordY = Number(coord.split(',')[0])
@@ -87,7 +88,7 @@ const Tile = (props) => {
   }
 
   const checkForImage = (input) => {
-    const fileNames = ['ffff', 'fffw', 'ffwf', 'ffww-ff', 'fwff', 'fwfw', 'fwwf-ff', 'fwww-ff', 'fwww-fw', 'fwww-wf', 'wfff', 'wffw', 'wfwf-fw', 'wfwf-wf', 'wfwf-ww', 'wfww', 'wwff', 'wwfw', 'wwwf', 'wwww-ff', 'wwww-fw', 'wwww-wf', 'wwww-ww']
+    const fileNames = ['ffff', 'fffw', 'ffwf', 'ffww-ff', 'fwff', 'fwfw', 'fwwf-ff', 'fwww-ff', 'fwww-fw', 'fwww-wf', 'wfff', 'wffw', 'wfwf-fw', 'wfwf-wf', 'wfwf-ww', 'wfww', 'wwff', 'wwfw', 'wwwf', 'wwww-ff', 'wwww-fw', 'wwww-wf', 'wwww-ww', 'ffww-wf', 'fwwf-fw', 'wfwf-ff', 'wfww-ff', 'wfww-ww', 'wwwf-ff', 'wwwf-ww', 'fwww']
     if (fileNames.includes(input)) {
       setTileImg(input)
     } else {

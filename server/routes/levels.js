@@ -9,7 +9,7 @@ module.exports = router
 router.get('/', (req, res) => {
   db.getLevelsAll()
     .then(levels => {
-      return res.json(prepForJS(levels))
+      return res.json(levels)
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
