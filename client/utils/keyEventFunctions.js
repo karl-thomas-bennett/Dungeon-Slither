@@ -29,14 +29,14 @@ export const handleKeys = (key, e, lastDirection) => {
   }
 }
 
-export const handleDrop = (dropPoint, tiles, holding) => {
+export const handleDrop = (dropPoint, tiles, holding, snake) => {
   let output = dropPoint
   const stack = [dropPoint]
   const visited = []
   while (stack.length > 0) {
     let t = stack.shift()
     visited.push[t.coord]
-    if (!t.content.includes('empty')) {
+    if (!t.content.includes('empty') || snake.map(segment => segment[0] + ',' + segment[1]).includes(t.coord)) {
       for (let neighbour of getNeibours(t.coord)) {
         if (!visited.includes(neighbour)) {
           stack.push(tiles.find(tile => tile.coord === neighbour))
