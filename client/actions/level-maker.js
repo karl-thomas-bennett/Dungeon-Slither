@@ -1,3 +1,5 @@
+import { addLevelAPI } from "../apis/levels"
+
 export const SET_TERRAIN_TYPE = 'SET_TERRAIN_TYPE'
 export const ADD_ITEM_TO_TILE = 'ADD_ITEM_TO_TILE'
 export const REMOVE_ITEM_FROM_TILE = 'REMOVE_ITEM_FROM_TILE'
@@ -29,5 +31,14 @@ export const removeItemFromTile = (coord) => {
 export const resetLevelEditor = () => {
   return {
     type: RESET_LEVEL_EDITOR
+  }
+}
+
+export const saveLevel = (data) => {
+  return dispatch => {
+    return addLevelAPI(data)
+      .then(() => {
+        return dispatch(resetLevelEditor())
+      })
   }
 }

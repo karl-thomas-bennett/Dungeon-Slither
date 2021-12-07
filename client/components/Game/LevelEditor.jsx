@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
-import { resetLevelEditor } from '../actions/level-maker'
+import { resetLevelEditor, saveLevel } from '../actions/level-maker'
+import { prepForDB } from '../../server/utils'
 
 import BoardDesign from './BoardDesign'
 import SelectionButton from './SelectionButton'
@@ -10,13 +11,23 @@ import SelectionButton from './SelectionButton'
 const LevelEditor = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const tiles = useSelector(store => store.levelMaker)
+  const direction = useSelector(store => store.levelData.direction)
   const [nameData, setNameData] = useState('')
 
   const changeHandle  = (e) => { setNameData(e.target.value) } 
   const resetHandler  = ()  => { dispatch(resetLevelEditor()) }
-  const submitHandler = ()  => { if (nameData.length > 0) { dispatch(resetLevelEditor()) } }
   const menuHandle    = ()  => { dispatch(resetLevelEditor()); navigate('/') }
   const rulesHandle   = ()  => { navigate('/editor/rules') }
+  const submitHandler = ()  => { if (nameData.length > 0) {
+    const level = {
+      name: nameData,
+      direction: direction,
+      tiles: prepForDB(tiles),
+      scores: prepForDB([])
+    }
+    dispatch(saveLevel(level))
+  } else { alert('Please enter a name for your level') }}
 
   return (
     <>

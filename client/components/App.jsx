@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import MainMenu from './MainMenu'
-import BoardPrototype from './BoardPrototype'
-import LevelEditor from './LevelEditor'
-import Fog from './Fog'
+import MainMenu from './Game/MainMenu'
+import BoardPrototype from './Game/BoardPrototype'
+import LevelEditor from './Game/LevelEditor'
+import Fog from './Game/Fog'
 
 function App () {
   return (

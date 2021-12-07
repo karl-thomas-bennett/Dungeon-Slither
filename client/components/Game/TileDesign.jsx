@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setTerrainType, addItemToTile, removeItemFromTile } from '../actions/level-maker'
-import { addDoorIn, addDoorOut, setGuard, setKey, setSword } from '../actions/level-data'
+import { addDoorIn, addDoorOut, removeDoorIn, removeDoorOut, setGuard, setKey, setSword, setDirection } from '../actions/level-data'
 
 const TileDesign = (props) => {
   const levelDataState  = useSelector(store => store.levelData)
@@ -14,9 +14,9 @@ const TileDesign = (props) => {
   const [upper, setUpper] = useState('')
   const coord = props.id
 
-  const removeCheck  = ['remove', 'wall', 'door-in', 'door-out']
+  const itemCheck   = ['food', 'guard', 'key', 'sword']
+  const removeCheck = ['remove', 'wall', 'door-in', 'door-out']
   const cornerCheck = ['0,0', '0,1', '0,2', '1,0', '2,0', `0,${upper}`, `0,${upper - 1}`, `0,${upper - 2}`, `1,${upper}`, `2,${upper}`, `${upper},0`, `${upper},1`, `${upper},2`, `${upper - 1},0`, `${upper - 2},0`, `${upper},${upper}`, `${upper},${upper - 1}`, `${upper},${upper - 2}`, `${upper - 1},${upper}`, `${upper - 2},${upper}`]
-  // const cornerCheck = ['0,0', '0,1', '0,2', '1,0', '2,0', '0,19', '0,18', '0,17', '1,19', '2,19', '19,0', '19,1', '19,2', '18,0', '17,0', '19,19', '19,18', '19,17', '18,19', '17,19']
 
   const stylingChecks = () => {
     let content = levelMakerState.find(tile => tile.coord === coord).content
@@ -85,11 +85,15 @@ const TileDesign = (props) => {
           alert('You cannot place doors too close to the corner')
         }
       }
-
+      
+      if (val === 'wall' || val === 'door-in' || val === 'door-out') {
+        if (terrainColor === 'green') { dispatch(removeDoorIn()) }
+        if (terrainColor === 'orange') { dispatch(removeDoorOut()) }
+      }
       if (val === 'wall') { dispatch(setTerrainType(coord, val)) }
       if (val === 'floor') { alert('You cannot place floor tiles along the map edge') }
-
     } else {
+      if (val === 'door-in' || val === 'door-out') { alert('You must place door tiles along the map edge') }
       if (val === 'floor' || val === 'wall') { dispatch(setTerrainType(coord, val)) }
       if (val === 'wall') { removeItem() }
       if (terrainColor === 'grey') {
@@ -120,16 +124,17 @@ const TileDesign = (props) => {
         if (val === 'food') {
           dispatch(addItemToTile(coord, val))
         }
-      } else {
+      }
+      if (terrainColor !== 'grey' && itemCheck.includes(val)) {
         alert('You must place items on a floor tile')
       }
     }
-    if (removeCheck.includes(val))  {
+    if (removeCheck.includes(val)) {
       removeItem()
     }
   }
 
-  // Check the item in the tile. If it is a limited item then reset it's limit. Remove the item from the tile.
+  // Check the item in the tile. If it is a limited item then reset its limit. Remove the item from the tile.
   const removeItem = () => {
     const item = levelMakerState.find(tile => tile.coord === coord).content[1]
     if (item === 'guard') { dispatch(setGuard(false)) }
@@ -145,6 +150,7 @@ const TileDesign = (props) => {
     } else {
       dispatch(setTerrainType(coord, val))
       dispatch(addDoorIn())
+      directionCheck()
     }
   }
 
@@ -177,6 +183,17 @@ const TileDesign = (props) => {
           levelMakerState.find(tile => tile.coord === right).content.includes(input) )
       { return true } else { return false }
     }
+  }
+
+  // Set direction based on where the entrance has been placed
+  const directionCheck = () => {
+    const coordX = coord.split(',')[1]
+    const coordY = coord.split(',')[0]
+
+    if (coordX === upper) { dispatch(setDirection('left')) }
+    if (coordX === '0') { dispatch(setDirection('right')) }
+    if (coordY === upper) { dispatch(setDirection('up')) }
+    if (coordY === '0') { dispatch(setDirection('down')) }
   }
 
   return (

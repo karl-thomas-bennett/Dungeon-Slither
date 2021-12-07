@@ -1,4 +1,12 @@
-export const prototypeLevel = [
+const prepForDB = (data) => {
+  return JSON.stringify(data)
+}
+
+const prepForJS = (data) => {
+  return JSON.parse(data)
+}
+
+const prototypeLevel = [
   { coord: '0,0',   content: [ 'wall', 'empty' ]     },
   { coord: '0,1',   content: [ 'wall', 'empty' ]     },
   { coord: '0,2',   content: [ 'wall', 'empty' ]     },
@@ -401,15 +409,8 @@ export const prototypeLevel = [
   { coord: '19,19', content: [ 'wall', 'empty' ]     }
 ]
 
-export const blankSlate = (dimensions) => {
-  const tiles = []
-  for (let x = 0; x < dimensions; x++) {
-    for (let y = 0; y < dimensions; y++) {
-      tiles.push({
-        coord: `${x},${y}`,
-        content: [ 'wall', 'empty' ]
-      })
-    }
-  }
-  return tiles
+module.exports = {
+  prepForDB,
+  prepForJS,
+  prototypeLevel
 }
