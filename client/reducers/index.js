@@ -4,6 +4,7 @@ import game from './game'
 import snake from './snake'
 import tiles from './tiles'
 import levelMaker from './level-maker'
+import levelData from './level-data'
 import products from './products'
 import cart from './cart'
 import errorMessage from './errorMessage'
@@ -15,6 +16,7 @@ export default combineReducers({
   snake,
   tiles,
   levelMaker,
+  levelData,
   products,
   cart,
   order,
