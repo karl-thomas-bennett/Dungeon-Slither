@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { prototypeLevel } from '../prototype-data'
+import { prototypeLevel } from '../../prototype-data'
 
 import Tile from './Tile'
 

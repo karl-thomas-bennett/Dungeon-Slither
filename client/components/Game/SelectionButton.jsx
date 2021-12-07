@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setSelection } from '../actions/level-data'
+import { setSelection } from '../../actions/level-data'
 
 const SelectionButton = (props) => {
   const selection = useSelector(store => store.levelData.selection)

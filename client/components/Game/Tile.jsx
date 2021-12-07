@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
 const Tile = (props) => {
   const dispatch = useDispatch()
+  const tiles = useSelector(store => store.tiles)
   const [style, setStyle] = useState('')
   const [item, setItem] = useState('')
+  const [tileImg, setTileImg] = useState('')
+  const coord = props.id
+  const terrain = props.content[0]
 
   const snakeMap = props.snake.map(segment => {
     return segment[0] + ',' + segment[1]
@@ -42,8 +46,42 @@ const Tile = (props) => {
     }
   }, [props.snake])
 
+  useEffect(() => {
+    calcImage()
+  }, [])
+
+  const calcImage = () => {
+    // top-right-bottom-left -- leftcorner-rightcorner
+    // ffff-ff
+
+    const coordX = Number(coord.split(',')[1])
+    const coordY = Number(coord.split(',')[0])
+
+    const neigborArray = []
+
+    neigborArr.push(tiles.find(tile => tile.coord === `${coordY - 1},${coordX}`).content[0])
+    neigborArr.push(tiles.find(tile => tile.coord === `${coordY},${coordX + 1}`).content[0])
+    neigborArr.push(tiles.find(tile => tile.coord === `${coordY + 1},${coordX}`).content[0])
+    neigborArr.push(tiles.find(tile => tile.coord === `${coordY},${coordX - 1}`).content[0])
+    neigborArr.push(tiles.find(tile => tile.coord === `${coordY + 1},${coordX - 1}`).content[0])
+    neigborArr.push(tiles.find(tile => tile.coord === `${coordY + 1},${coordX + 1}`).content[0])
+
+    neigborArray.map(neigbor => checkNeigbor(neigbor))
+    const tileName = `${neigborArray[0]}${neigborArray[1]}${neigborArray[2]}${neigborArray[3]}-${neigborArray[4]}${neigborArray[5]}`
+    console.log(tileName)
+  }
+
+  const checkNeigbor = (tile) => {
+    if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
+      return 'w'
+    } else {
+      return 'f'
+    }
+  }
+
   return (
     <div className='tile' id={props.id} style={{ backgroundColor: style }}>
+      <img src={`/tiles/${tileImg}.png`} className='tile-image'></img>
       <div className='item' style={{ backgroundColor: item }}></div>
       {
         itemPos[0] === pos[0] && itemPos[1] === pos[1] &&

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
-import { resetLevelEditor, saveLevel } from '../actions/level-maker'
-import { prepForDB } from '../../server/utils'
+import { resetLevelEditor, saveLevel } from '../../actions/level-maker'
+import { prepForDB } from '../../../server/utils'
 
 import BoardDesign from './BoardDesign'
 import SelectionButton from './SelectionButton'

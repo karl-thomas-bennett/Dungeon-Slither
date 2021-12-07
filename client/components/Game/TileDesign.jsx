@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setTerrainType, addItemToTile, removeItemFromTile } from '../actions/level-maker'
-import { addDoorIn, addDoorOut, removeDoorIn, removeDoorOut, setGuard, setKey, setSword, setDirection } from '../actions/level-data'
+import { setTerrainType, addItemToTile, removeItemFromTile } from '../../actions/level-maker'
+import { addDoorIn, addDoorOut, removeDoorIn, removeDoorOut, setGuard, setKey, setSword, setDirection } from '../../actions/level-data'
 
 const TileDesign = (props) => {
   const levelDataState  = useSelector(store => store.levelData)
