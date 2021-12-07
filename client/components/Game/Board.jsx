@@ -20,6 +20,8 @@ function Board(props) {
   const [lastDirection, setLastDirection] = useState('left')
   const [holding, setHolding] = useState('none')
   const [toggle, setToggle] = useState(true)
+  const [jumpToggle, setJumpToggle] = useState(true)
+  const [firstJump, setFirstJump] = useState(true)
 
   const tiles = useSelector(state => state.tiles)
 
@@ -116,16 +118,27 @@ function Board(props) {
     }
   }
 
+  useEffect(() => {
+    if (firstJump) {
+      setFirstJump(false)
+    } else {
+      setTimer(setInterval(() => {
+        setToggle(toggle => !toggle)
+      }, 300))
+      return () => clearInterval(timer)
+    }
+  }, [jumpToggle])
+
+
+
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
         if (gameState === 'playing') {
           setDirection(handleKeys(key, e, lastDirection))
           setToggle(toggle => !toggle)
+          setJumpToggle(jumpToggle => !jumpToggle)
           clearInterval(timer)
-          setTimer(setInterval(() => {
-            setToggle(toggle => !toggle)
-          }, 300))
         }
       }
       } />
