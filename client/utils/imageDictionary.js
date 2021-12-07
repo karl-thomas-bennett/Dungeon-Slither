@@ -1,91 +1,22 @@
-export default [
-  {
-    name: 'head-right',
-    cases: [
-      { name: 'head-right', flipped: false },
-      { name: 'head-left', flipped: true }
-    ]
-  },
-  {
-    name: 'tail-right',
-    cases: [
-      { name: 'tail-right', flipped: false },
-      { name: 'tail-left', flipped: true }
-    ]
-  },
-  {
-    name: 'head-down',
-    cases: [
-      { name: 'head-down', flipped: false }
-    ]
-  },
-  {
-    name: 'tail-down',
-    cases: [
-      { name: 'tail-down', flipped: false }
-    ]
-  },
-  {
-    name: 'head-up',
-    cases: [
-      { name: 'head-up', flipped: false }
-    ]
-  },
-  {
-    name: 'tail-up',
-    cases: [
-      { name: 'tail-up', flipped: false }
-    ]
-  },
-  {
-    name: 'body-up-right',
-    cases: [
-      { name: 'body-up-right', flipped: false },
-      { name: 'body-up-left', flipped: true }
-
-    ]
-  },
-  {
-    name: 'body-down-left',
-    cases: [
-      { name: 'body-down-left', flipped: false },
-      { name: 'body-down-right', flipped: true }
-
-    ]
-  },
-  {
-    name: 'body-left-up',
-    cases: [
-      { name: 'body-left-up', flipped: false },
-      { name: 'body-right-up', flipped: true }
-
-    ]
-  },
-  {
-    name: 'body-right-down',
-    cases: [
-      { name: 'body-right-down', flipped: false },
-      { name: 'body-left-down', flipped: true }
-
-    ]
-  },
-  {
-    name: 'body-horizontal',
-    cases: [
-      { name: 'body-left-left', flipped: true },
-      { name: 'body-right-right', flipped: false },
-    ]
-  },
-  {
-    name: 'body-down',
-    cases: [
-      { name: 'body-down-down', flipped: false }
-    ]
-  },
-  {
-    name: 'body-up',
-    cases: [
-      { name: 'body-up-up', flipped: false }
-    ]
-  }
-]
+export default {
+  'head-right': { name: 'head-right', flipped: false },
+  'head-left': { name: 'head-right', flipped: true },
+  'tail-right': { name: 'tail-right', flipped: false },
+  'tail-left': { name: 'tail-right', flipped: true },
+  'head-down': { name: 'head-down', flipped: false },
+  'tail-down': { name: 'tail-down', flipped: false },
+  'head-up': { name: 'head-up', flipped: false },
+  'tail-up': { name: 'tail-up', flipped: false },
+  'body-up-right': { name: 'body-up-right', flipped: false },
+  'body-up-left': { name: 'body-up-right', flipped: true },
+  'body-down-left': { name: 'body-down-left', flipped: false },
+  'body-down-right': { name: 'body-down-left', flipped: true },
+  'body-left-up': { name: 'body-left-up', flipped: false },
+  'body-right-up': { name: 'body-left-up', flipped: true },
+  'body-right-down': { name: 'body-right-down', flipped: false },
+  'body-left-down': { name: 'body-right-down', flipped: true },
+  'body-left-left': { name: 'body-horizontal', flipped: true },
+  'body-right-right': { name: 'body-horizontal', flipped: false },
+  'body-down-down': { name: 'body-down', flipped: false },
+  'body-up-up': { name: 'body-up', flipped: false }
+}

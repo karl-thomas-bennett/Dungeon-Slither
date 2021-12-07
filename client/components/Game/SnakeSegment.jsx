@@ -4,17 +4,12 @@ import imageDict from '../../utils/imageDictionary'
 const SnakeSegment = ({ snake, pos }) => {
   const i = snake.findIndex(segment => segment[0] === pos[0] && segment[1] === pos[1])
   const segment = getSegment(snake[i - 1], snake[i], snake[i + 1])
-  const image = imageDict.find(image => {
-    return image.cases.find(imageCase => {
-      return imageCase.name === segment
-    })
-  })
+  const image = imageDict[segment]
 
   let className = 'snake'
-  if (image.cases.find(imageCase => imageCase.name === segment).flipped) {
+  if (image.flipped) {
     className += ' flipped'
   }
-
 
   return (
     <img src={'/segments/' + image.name + '.png'} className={className} />
