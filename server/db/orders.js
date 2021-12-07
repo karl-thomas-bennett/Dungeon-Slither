@@ -16,6 +16,7 @@ function listOrders(db = connection) {
       'products.id as productId',
       'orders.id as orderId',
       'quantity',
+      'price',
       'created_at as createdAt',
       'status',
       'name')
@@ -49,7 +50,8 @@ function addOrderLines(id, order, db = connection) {
     return {
       order_id: id,
       product_id: item.id,
-      quantity: item.quantity
+      quantity: item.quantity,
+
     }
   })
   return db('orders_products').insert(orderLines)
@@ -84,6 +86,7 @@ function findOrderById(id, db = connection) {
       'products.id as productId',
       'orders.id as orderId',
       'quantity',
+      'price',
       'created_at as createdAt',
       'status',
       'name')
