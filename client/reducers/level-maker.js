@@ -8,17 +8,17 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TERRAIN_TYPE:
       const item = state.find(tile => tile.coord === action.coord).content[1]
-      return [ ...state, state.find(tile => tile.coord === action.coord).content = [action.terrain, item] ]
+      return state.map(tile => tile.coord === action.coord ? { ...tile, content: [action.terrain, item] } : tile)
     case ADD_ITEM_TO_TILE:
       let terrainAdd = state.find(tile => tile.coord === action.coord).content[0]
       if (terrainCheck.includes(terrainAdd)) {
         return state
       } else {
-        return [ ...state, state.find(tile => tile.coord === action.coord).content = [terrainAdd, action.item] ]
+        return state.map(tile => tile.coord === action.coord ? { ...tile, content: [terrainAdd, action.item] } : tile)
       }
     case REMOVE_ITEM_FROM_TILE:
       let terrainRemove = state.find(tile => tile.coord === action.coord).content[0]
-      return [ ...state, state.find(tile => tile.coord === action.coord).content = [terrainRemove, 'empty'] ]
+      return state.map(tile => tile.coord === action.coord ? { ...tile, content: [terrainRemove, 'empty'] } : tile)
     case RESET_LEVEL_EDITOR:
       return blankSlate(20)
     default:

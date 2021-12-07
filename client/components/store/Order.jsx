@@ -29,6 +29,7 @@ function Order (props) {
           <tr>
             <td role='columnheader'>Product</td>
             <td role='columnheader'>Quantity</td>
+            <td roll='columnheader'>Price</td>
           </tr>
         </thead>
         <tbody>

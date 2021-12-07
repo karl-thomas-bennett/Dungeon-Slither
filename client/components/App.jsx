@@ -1,44 +1,28 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
-import Header from './store/Header'
-import ErrorMessage from './store/ErrorMessage'
-import Cart from './store/Cart'
-import ProductList from './store/ProductList'
-import OrderList from './store/OrderList'
-import WaitIndicator from './store/WaitIndicator'
-import Board from './Game/Board'
+import MainMenu from './Game/MainMenu'
+import LevelMenu from './Game/LevelMenu'
+import LevelEditor from './Game/LevelEditor'
 import ImageLoader from './Game/ImageLoader'
+import Board from './Game/Board'
+// import Fog from './Game/Fog'
+
+import Store from './store/Store'
 
 function App() {
   return (
-    <div className='app'>
-      <Route path='/' component={Header} />
-      <Route path='/' component={ErrorMessage} />
-      <Route exact path='/' render={({ history }) => {
-        return <ProductList history={history}>
-          <WaitIndicator />
-        </ProductList>
-      }} />
-      <Route path='/cart' render={({ history }) => {
-        return <Cart history={history}>
-          <WaitIndicator />
-        </Cart>
-      }} />
-      <Route path='/orders' render={() => {
-        return <OrderList>
-          <WaitIndicator />
-        </OrderList>
-      }} />
-      <Route path='/game' render={() => {
-        return (
-          <>
-            <ImageLoader />
-            <Board />
-          </ >
-        )
-      }} />
-    </div>
+    <>
+      <ImageLoader />
+      <Switch>
+        <Route exact path='/' component={MainMenu} />
+        <Route exact path='/game' component={Board} />
+        <Route exact path='/levels' component={LevelMenu} />
+        <Route exact path='/editor' component={LevelEditor} />
+        <Route path='/store' component={Store} />
+      </Switch>
+      {/* <Fog /> */}
+    </>
   )
 }
 
