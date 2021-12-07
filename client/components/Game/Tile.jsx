@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
-import { getStyle } from '../../utils/tileUtil'
+import { getStyle, getItemPos } from '../../utils/tileUtil'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
@@ -52,19 +52,6 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
       }
     </div>
   )
-}
-
-function getItemPos(snakeHead, direction) {
-  switch (direction) {
-    case 'left':
-      return [snakeHead[0], snakeHead[1] - 1]
-    case 'right':
-      return [snakeHead[0], snakeHead[1] + 1]
-    case 'up':
-      return [snakeHead[0] - 1, snakeHead[1]]
-    case 'down':
-      return [snakeHead[0] + 1, snakeHead[1]]
-  }
 }
 
 export default Tile
