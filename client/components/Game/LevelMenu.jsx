@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router'
+// import { useNavigate } from 'react-router'
 
 import { getLevelsAllAPI } from '../../apis/levels'
 import { setDirection, setGameState } from '../../actions/game'
 import { setTilesState } from '../../actions/tiles'
 import { prepForJS } from '../../../server/utils'
 
-const LevelMenu = () => {
-  const navigate = useNavigate()
+const LevelMenu = (props) => {
+  // const navigate = useNavigate()
   const dispatch = useDispatch()
   const [levels, setLevels] = useState([])
 
@@ -20,7 +20,7 @@ const LevelMenu = () => {
     dispatch(setGameState('playing'))
     dispatch(setDirection(level.direction))
     dispatch(setTilesState(prepForJS(level.tiles)))
-    navigate('/game')
+    props.history.push('/game')
   }
 
   return (

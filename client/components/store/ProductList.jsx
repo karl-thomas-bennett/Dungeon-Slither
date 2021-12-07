@@ -19,7 +19,7 @@ function ProductList (props) {
     const { id, name } = product
     const newCartItem = { id, name }
     dispatch(addToCart(newCartItem))
-    history.push('/cart')
+    history.push('/store/cart')
   }
 
   return (

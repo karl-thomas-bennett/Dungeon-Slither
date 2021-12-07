@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+// import { useNavigate } from 'react-router'
 
 import { resetLevelEditor, saveLevel } from '../../actions/level-maker'
 import { prepForDB } from '../../../server/utils'
@@ -8,8 +8,8 @@ import { prepForDB } from '../../../server/utils'
 import BoardDesign from './BoardDesign'
 import SelectionButton from './SelectionButton'
 
-const LevelEditor = () => {
-  const navigate = useNavigate()
+const LevelEditor = (props) => {
+  // const navigate = useNavigate()
   const dispatch = useDispatch()
   const tiles = useSelector(store => store.levelMaker)
   const direction = useSelector(store => store.levelData.direction)
@@ -17,8 +17,8 @@ const LevelEditor = () => {
 
   const changeHandle  = (e) => { setNameData(e.target.value) } 
   const resetHandler  = ()  => { dispatch(resetLevelEditor()) }
-  const menuHandle    = ()  => { dispatch(resetLevelEditor()); navigate('/') }
-  const rulesHandle   = ()  => { navigate('/editor/rules') }
+  const menuHandle    = ()  => { dispatch(resetLevelEditor()); props.history.push('/rules') }
+  const rulesHandle   = ()  => { props.history.push('/editor/rules') }
   const submitHandler = ()  => { if (nameData.length > 0) {
     const level = {
       name: nameData,
