@@ -13,6 +13,7 @@ function Board(props) {
   const [size, setSize] = useState(6)
 
   const game = useSelector(state => state.game)
+  const [timer, setTimer] = useState(0)
   const gameState = game.gameState
   const [snake, setSnake] = useState(initial)
   const [direction, setDirection] = useState(game.direction)
@@ -56,9 +57,9 @@ function Board(props) {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    setTimer(setInterval(() => {
       setToggle(toggle => !toggle)
-    }, 300)
+    }, 300))
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
@@ -117,7 +118,17 @@ function Board(props) {
 
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? setDirection(handleKeys(key, e, lastDirection)) : ''} />
+      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
+        if (gameState === 'playing') {
+          setDirection(handleKeys(key, e, lastDirection))
+          setToggle(toggle => !toggle)
+          clearInterval(timer)
+          setTimer(setInterval(() => {
+            setToggle(toggle => !toggle)
+          }, 300))
+        }
+      }
+      } />
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={
         () => {
           setHolding('none')

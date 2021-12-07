@@ -24,6 +24,8 @@ export const handleKeys = (key, e, lastDirection) => {
       } else {
         return 'right'
       }
+    default:
+      return lastDirection
   }
 }
 
