@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
-import { handleKeys } from '../../utils/keyEventFunctions'
+import { handleKeys, handleDrop } from '../../utils/keyEventFunctions'
 import Tile from './Tile'
 
 function Board(props) {
@@ -25,28 +25,6 @@ function Board(props) {
   const getNeibours = (coord) => {
     const arrayCoord = coord.split(',').map(a => Number(a))
     return [[arrayCoord[0] + 1, arrayCoord[1]].join(), [arrayCoord[0] - 1, arrayCoord[1]].join(), [arrayCoord[0], arrayCoord[1] + 1].join(), [arrayCoord[0], arrayCoord[1] - 1].join()]
-  }
-
-  const handleDrop = (key, e) => {
-    setHolding('none')
-    let dropPoint = tiles.find(tile => tile.coord === snake[0].join())
-    const stack = [dropPoint]
-    const visited = []
-    while (stack.length > 0) {
-      let t = stack.shift()
-      visited.push[t.coord]
-      if (!t.content.includes('empty')) {
-        for (let neighbour of getNeibours(dropPoint.coord)) {
-          if (!visited.includes(neighbour)) {
-            stack.push(tiles.find(tile => tile.coord === neighbour))
-          }
-        }
-      } else {
-        dropPoint = t
-        break
-      }
-    }
-    dispatch(setTileContent(dropPoint.coord, dropPoint.content.map(thing => thing === 'empty' ? holding : thing)))
   }
 
   const makeSnake = (initial, directionArr) => {
@@ -142,13 +120,15 @@ function Board(props) {
     }
   }
 
-
-
-
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
       <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? setDirection(handleKeys(key, e, lastDirection)) : ''} />
-      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={handleDrop} />
+      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={
+        () => {
+          setHolding('none')
+          dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding)))
+        }
+      } />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
     </div>
   )
