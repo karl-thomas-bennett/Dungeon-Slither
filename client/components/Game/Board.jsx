@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
+import { handleKeys } from '../../utils/keyEventFunctions'
 import Tile from './Tile'
 
 function Board(props) {
   const dispatch = useDispatch()
   const boardSize = 20
-  // const tiles = []
-  // for (let i = 1; i <= boardSize; i++) {
-  //   for (let j = 1; j <= boardSize; j++) {
-  //     tiles.push(j + ', ' + i)
-  //   }
-  // }
 
   let initial = []
   const [size, setSize] = useState(6)
@@ -26,30 +21,6 @@ function Board(props) {
   const [toggle, setToggle] = useState(true)
 
   const tiles = useSelector(state => state.tiles)
-  const handleKeys = (key, e) => {
-    switch (key) {
-      case 'w':
-        if (lastDirection !== 'down') {
-          setDirection('up')
-        }
-        break;
-      case 'd':
-        if (lastDirection !== 'left') {
-          setDirection('right')
-        }
-        break;
-      case 's':
-        if (lastDirection !== 'up') {
-          setDirection('down')
-        }
-        break;
-      case 'a':
-        if (lastDirection !== 'right') {
-          setDirection('left')
-        }
-        break;
-    }
-  }
 
   const getNeibours = (coord) => {
     const arrayCoord = coord.split(',').map(a => Number(a))
@@ -176,7 +147,7 @@ function Board(props) {
 
   return (
     <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? handleKeys(key, e) : ''} />
+      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? setDirection(handleKeys(key, e, lastDirection)) : ''} />
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={handleDrop} />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
     </div>
