@@ -40,7 +40,7 @@ function Cart (props) {
           </tbody>
         </table>
         <p className='actions'>
-          <Link to='/'>Continue shopping</Link>
+          <Link to='/store'>Continue shopping</Link>
           <span>
             {children} { /* Holds the WaitIndicator */}
             <button
@@ -52,7 +52,7 @@ function Cart (props) {
         </p>
       </div>
     )
-    : <p>Your cart is empty! Start shopping <Link to='/'>here</Link></p>
+    : <p>Your cart is empty! Start shopping <Link to='/store'>here</Link></p>
 }
 
 export default Cart
