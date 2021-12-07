@@ -51,31 +51,50 @@ const Tile = (props) => {
   }, [])
 
   const calcImage = () => {
-    // top-right-bottom-left -- leftcorner-rightcorner
-    // ffff-ff
+    if (terrain === 'floor') {
+      setTileImg('floor-a')
+    } else {
+      const coordX = Number(coord.split(',')[1])
+      const coordY = Number(coord.split(',')[0])
 
-    const coordX = Number(coord.split(',')[1])
-    const coordY = Number(coord.split(',')[0])
+      let coordArr = [
+        { y: coordY - 1, x: coordX     },
+        { y: coordY,     x: coordX + 1 },
+        { y: coordY + 1, x: coordX     },
+        { y: coordY,     x: coordX - 1 },
+        { y: coordY + 1, x: coordX - 1 },
+        { y: coordY + 1, x: coordX + 1 }
+      ]
+      let neigborArr = []
 
-    const neigborArray = []
-
-    neigborArr.push(tiles.find(tile => tile.coord === `${coordY - 1},${coordX}`).content[0])
-    neigborArr.push(tiles.find(tile => tile.coord === `${coordY},${coordX + 1}`).content[0])
-    neigborArr.push(tiles.find(tile => tile.coord === `${coordY + 1},${coordX}`).content[0])
-    neigborArr.push(tiles.find(tile => tile.coord === `${coordY},${coordX - 1}`).content[0])
-    neigborArr.push(tiles.find(tile => tile.coord === `${coordY + 1},${coordX - 1}`).content[0])
-    neigborArr.push(tiles.find(tile => tile.coord === `${coordY + 1},${coordX + 1}`).content[0])
-
-    neigborArray.map(neigbor => checkNeigbor(neigbor))
-    const tileName = `${neigborArray[0]}${neigborArray[1]}${neigborArray[2]}${neigborArray[3]}-${neigborArray[4]}${neigborArray[5]}`
-    console.log(tileName)
+      coordArr.map(coord => neigborArr.push(checkNeigbor(coord.x, coord.y)))
+      const tileName = `${neigborArr[0]}${neigborArr[1]}${neigborArr[2]}${neigborArr[3]}-${neigborArr[4]}${neigborArr[5]}`
+      checkForImage(tileName)
+    }
   }
 
-  const checkNeigbor = (tile) => {
-    if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
-      return 'w'
+  const checkNeigbor = (x, y) => {
+    if (tiles.find(tile => tile.coord === `${y},${x}`)) {
+      const tile = tiles.find(tile => tile.coord === `${y},${x}`).content[0]
+      if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
+        return 'w'
+      } else {
+        return 'f'
+      }
     } else {
       return 'f'
+    }
+  }
+
+  const checkForImage = (input) => {
+    const fileNames = ['ffff', 'fffw', 'ffwf', 'ffww-ff', 'fwff', 'fwfw', 'fwwf-ff', 'fwww-ff', 'fwww-fw', 'fwww-wf', 'wfff', 'wffw', 'wfwf-fw', 'wfwf-wf', 'wfwf-ww', 'wfww', 'wwff', 'wwfw', 'wwwf', 'wwww-ff', 'wwww-fw', 'wwww-wf', 'wwww-ww']
+    if (fileNames.includes(input)) {
+      setTileImg(input)
+    } else {
+      if (!fileNames.includes(input.substring(0, 4))) {
+        console.log('Does not exist')
+      }
+      setTileImg(input.substring(0, 4))
     }
   }
 
