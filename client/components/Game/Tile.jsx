@@ -11,8 +11,8 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
   const [style, setStyle] = useState('')
   const [item, setItem] = useState('')
   const [tileImg, setTileImg] = useState('')
-  const coord = props.id
-  const terrain = props.content[0]
+  const coord = id
+  const terrain = content[0]
 
   const snakeMap = snake.map(segment => {
     return segment[0] + ',' + segment[1]
@@ -54,10 +54,10 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
       const coordY = Number(coord.split(',')[0])
 
       let coordArr = [
-        { y: coordY - 1, x: coordX     },
-        { y: coordY,     x: coordX + 1 },
-        { y: coordY + 1, x: coordX     },
-        { y: coordY,     x: coordX - 1 },
+        { y: coordY - 1, x: coordX },
+        { y: coordY, x: coordX + 1 },
+        { y: coordY + 1, x: coordX },
+        { y: coordY, x: coordX - 1 },
         { y: coordY + 1, x: coordX - 1 },
         { y: coordY + 1, x: coordX + 1 }
       ]
