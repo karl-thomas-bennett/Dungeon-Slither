@@ -407,7 +407,7 @@ export const blankSlate = (dimensions) => {
     for (let y = 0; y < dimensions; y++) {
       tiles.push({
         coord: `${x},${y}`,
-        content: [ 'wall', 'empty' ]
+        content: ['wall', 'empty']
       })
     }
   }

@@ -16,7 +16,11 @@
     "dev:server": "nodemon --watch server server/index.js",
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
-    "lint": "eslint --ext .js,.jsx ."
+    "lint": "eslint --ext .js,.jsx .",
+    "postinstall": "npm run knex migrate:latest",
+    "h:migrate": "heroku run npm run knex migrate:latest",
+    "h:rollback": "heroku run npm run knex migrate:rollback",
+    "h:seed": "heroku run npm run knex seed:run"
   },
   "keywords": [
     "fullstack"
@@ -73,9 +77,12 @@
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.21.17",
-    "pg": "^8.5.1",
+    "pg": "^8.7.1",
     "react-keyboard-event-handler": "^1.5.4",
     "react-timer-hook": "^3.0.5",
     "superagent": "^6.1.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

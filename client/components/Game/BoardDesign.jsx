@@ -1,8 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { blankSlate } from '../../prototype-data'
-
 import TileDesign from './TileDesign'
 
 const BoardDesign = (props) => {

@@ -1,0 +1,9 @@
+.snake {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.flipped {
+  transform: scale(-1, 1);
+}
