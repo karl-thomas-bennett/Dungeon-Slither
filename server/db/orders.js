@@ -8,7 +8,7 @@ module.exports = {
   editOrderStatus
 }
 
-function listOrders (db = connection) {
+function listOrders(db = connection) {
   return db('orders_products')
     .join('orders', 'orders_products.order_id', 'orders.id')
     .join('products', 'orders_products.product_id', 'products.id')
@@ -22,7 +22,7 @@ function listOrders (db = connection) {
     .then(formatOrderList)
 }
 
-function addOrder (orderRequest, db = connection) {
+function addOrder(orderRequest, db = connection) {
   // remove item names from order (we have the id)
   const order = orderRequest.map((item) => {
     return {
@@ -40,11 +40,11 @@ function addOrder (orderRequest, db = connection) {
   return db('orders').insert({
     created_at: timestamp,
     status: 'pending'
-  })
+  }, 'id')
     .then(([id]) => addOrderLines(id, order, db))
 }
 
-function addOrderLines (id, order, db = connection) {
+function addOrderLines(id, order, db = connection) {
   const orderLines = order.map(item => {
     return {
       order_id: id,
@@ -56,7 +56,7 @@ function addOrderLines (id, order, db = connection) {
     .then(() => null)
 }
 
-function editOrderStatus (id, newStatus, db = connection) {
+function editOrderStatus(id, newStatus, db = connection) {
   return orderExists(id, db)
     .then(() => {
       return db('orders')
@@ -66,7 +66,7 @@ function editOrderStatus (id, newStatus, db = connection) {
     .then(() => findOrderById(id, db))
 }
 
-function orderExists (id, db = connection) {
+function orderExists(id, db = connection) {
   return db('orders')
     .where('id', id)
     .first()
@@ -76,7 +76,7 @@ function orderExists (id, db = connection) {
     })
 }
 
-function findOrderById (id, db = connection) {
+function findOrderById(id, db = connection) {
   return db('orders_products')
     .join('orders', 'orders_products.order_id', 'orders.id')
     .join('products', 'orders_products.product_id', 'products.id')
