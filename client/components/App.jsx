@@ -1,5 +1,12 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+
+import MainMenu from './Game/MainMenu'
+import LevelMenu from './Game/LevelMenu'
+import LevelEditor from './Game/LevelEditor'
+import ImageLoader from './Game/ImageLoader'
+import Board from './Game/Board'
+import Fog from './Game/Fog'
 
 import Header from './store/Header'
 import ErrorMessage from './store/ErrorMessage'
@@ -7,13 +14,20 @@ import Cart from './store/Cart'
 import ProductList from './store/ProductList'
 import OrderList from './store/OrderList'
 import WaitIndicator from './store/WaitIndicator'
-import Board from './Game/Board'
-import ImageLoader from './Game/ImageLoader'
 
 function App() {
   return (
-    <div className='app'>
-      <Route path='/' component={Header} />
+    <>
+      <ImageLoader />
+      <Routes>
+        <Route path='/' element={<MainMenu />} />
+        <Route path='/game' element={<Board />} />
+        <Route path='/levels' element={<LevelMenu />} />
+        <Route path='/editor' element={<LevelEditor />} />
+      </Routes>
+      {/* <Fog /> */}
+      
+      {/* <Route path='/' component={Header} />
       <Route path='/' component={ErrorMessage} />
       <Route exact path='/' render={({ history }) => {
         return <ProductList history={history}>
@@ -29,16 +43,8 @@ function App() {
         return <OrderList>
           <WaitIndicator />
         </OrderList>
-      }} />
-      <Route path='/game' render={() => {
-        return (
-          <>
-            <ImageLoader />
-            <Board />
-          </ >
-        )
-      }} />
-    </div>
+      }} /> */}
+    </>
   )
 }
 

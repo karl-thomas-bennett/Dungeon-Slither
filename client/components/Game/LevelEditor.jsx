@@ -1,16 +1,33 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 
-import { resetLevelEditor } from '../actions/level-maker'
+import { resetLevelEditor, saveLevel } from '../../actions/level-maker'
+import { prepForDB } from '../../../server/utils'
 
 import BoardDesign from './BoardDesign'
 import SelectionButton from './SelectionButton'
 
 const LevelEditor = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const tiles = useSelector(store => store.levelMaker)
+  const direction = useSelector(store => store.levelData.direction)
+  const [nameData, setNameData] = useState('')
 
-  const resetHandler     = (selection) => { dispatch(resetLevelEditor())      }
-  const submitHandler    = (selection) => { dispatch(resetLevelEditor())      }
+  const changeHandle  = (e) => { setNameData(e.target.value) } 
+  const resetHandler  = ()  => { dispatch(resetLevelEditor()) }
+  const menuHandle    = ()  => { dispatch(resetLevelEditor()); navigate('/') }
+  const rulesHandle   = ()  => { navigate('/editor/rules') }
+  const submitHandler = ()  => { if (nameData.length > 0) {
+    const level = {
+      name: nameData,
+      direction: direction,
+      tiles: prepForDB(tiles),
+      scores: prepForDB([])
+    }
+    dispatch(saveLevel(level))
+  } else { alert('Please enter a name for your level') }}
 
   return (
     <>
@@ -29,9 +46,26 @@ const LevelEditor = () => {
         <SelectionButton name='Remove'   value='remove'   />
       </div>
       <div className='editor-header'>
-        <button onClick={() => resetHandler()}> Reset Map</button>
-        <button onClick={() => submitHandler()}>Submit   </button>
+        <button className='header-button' onClick={menuHandle}>Menu</button>
+        <button className='header-button' onClick={rulesHandle}>Rules</button>
+        <div className='header-input-div'>
+          <label htmlFor='name'/>
+          <input className='header-input'
+            type='text'
+            name='name'
+            id='name'
+            required
+            maxLength='30'
+            placeholder='Enter a name for your level'
+            value={nameData}
+            onChange={changeHandle}
+          />
+        </div>
+        <button className='header-button' onClick={resetHandler}>Reset</button>
+        <button className='header-button' onClick={submitHandler}>Submit</button>
       </div>
+      <div className='border1'></div>
+      <div className='border2'></div>
     </>
   )
 }

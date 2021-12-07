@@ -7,8 +7,13 @@ body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+@import './variables.scss';
 @import './board.scss';
+@import './tile.scss';
 @import './level-editor.scss';
+@import './level-menu.scss';
+@import './main-menu.scss';
+@import './fog.scss';
 @import './snake.scss';
 //@import './font-awesome.min.scss';
 @import './main.scss';

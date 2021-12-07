@@ -1,8 +1,9 @@
+import { addLevelAPI } from "../apis/levels"
+
 export const SET_TERRAIN_TYPE = 'SET_TERRAIN_TYPE'
 export const ADD_ITEM_TO_TILE = 'ADD_ITEM_TO_TILE'
 export const REMOVE_ITEM_FROM_TILE = 'REMOVE_ITEM_FROM_TILE'
 export const RESET_LEVEL_EDITOR = 'RESET_LEVEL_EDITOR'
-export const SET_SELECTION = 'SET_SELECTION'
 
 export const setTerrainType = (coord, terrain) => {
   return {
@@ -33,9 +34,11 @@ export const resetLevelEditor = () => {
   }
 }
 
-export const setSelection = (selection) => {
-  return {
-    type: SET_SELECTION,
-    selection
+export const saveLevel = (data) => {
+  return dispatch => {
+    return addLevelAPI(data)
+      .then(() => {
+        return dispatch(resetLevelEditor())
+      })
   }
 }
