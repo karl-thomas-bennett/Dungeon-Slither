@@ -48,3 +48,8 @@ export const handleDrop = (dropPoint, tiles, holding) => {
   output.content = output.content.map(item => item === 'empty' ? holding : item)
   return output
 }
+
+const getNeibours = (coord) => {
+  const arrayCoord = coord.split(',').map(a => Number(a))
+  return [[arrayCoord[0] + 1, arrayCoord[1]].join(), [arrayCoord[0] - 1, arrayCoord[1]].join(), [arrayCoord[0], arrayCoord[1] + 1].join(), [arrayCoord[0], arrayCoord[1] - 1].join()]
+}

@@ -22,11 +22,6 @@ function Board(props) {
 
   const tiles = useSelector(state => state.tiles)
 
-  const getNeibours = (coord) => {
-    const arrayCoord = coord.split(',').map(a => Number(a))
-    return [[arrayCoord[0] + 1, arrayCoord[1]].join(), [arrayCoord[0] - 1, arrayCoord[1]].join(), [arrayCoord[0], arrayCoord[1] + 1].join(), [arrayCoord[0], arrayCoord[1] - 1].join()]
-  }
-
   const makeSnake = (initial, directionArr) => {
     for (let i = 1; i < size; i++) {
       initial = [...initial, [initial[0][0] + i * directionArr[0], initial[0][1] + i * directionArr[1]]]
