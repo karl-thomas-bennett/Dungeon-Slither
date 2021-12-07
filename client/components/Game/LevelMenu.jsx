@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 
 import { getLevelsAllAPI } from '../../apis/levels'
-import { setDirection } from '../../actions/game'
+import { setDirection, setGameState } from '../../actions/game'
 import { setTilesState } from '../../actions/tiles'
 import { prepForJS } from '../../../server/utils'
 
@@ -17,6 +17,7 @@ const LevelMenu = () => {
   }, [])
 
   const playLevel = (level) => {
+    dispatch(setGameState('playing'))
     dispatch(setDirection(level.direction))
     dispatch(setTilesState(prepForJS(level.tiles)))
     navigate('/game')

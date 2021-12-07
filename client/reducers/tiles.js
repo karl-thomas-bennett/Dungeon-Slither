@@ -2,7 +2,7 @@ import { prototypeLevel } from '../prototype-data'
 import { SET_TILE_CONTENT } from '../actions/game'
 import { SET_TILES_STATE } from '../actions/tiles'
 
-const initialState = prototypeLevel
+const initialState = []
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

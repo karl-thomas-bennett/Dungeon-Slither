@@ -5,7 +5,7 @@ const initialState = { direction: 'down', score: 0, gameState: 'playing' }
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DIRECTION:
-      return { ...state, drection: action.direction }
+      return { ...state, direction: action.direction }
     case 'SET_SCORE':
       return { ...state, score: action.score }
     case SET_GAME_STATE:

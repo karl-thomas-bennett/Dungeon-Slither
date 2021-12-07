@@ -18,7 +18,7 @@ function App() {
         <Route path='/levels' element={<LevelMenu />} />
         <Route path='/editor' element={<LevelEditor />} />
       </Routes>
-      <Fog />
+      {/* <Fog /> */}
     </>
   )
 }
