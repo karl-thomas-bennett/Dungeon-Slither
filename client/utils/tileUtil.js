@@ -3,9 +3,9 @@ const map = {
   'wall': 'black',
   'door-in': 'green',
   'door-out': 'red',
-  'food': 'green',
-  'sword': 'blue',
-  'key': 'purple',
+  'food': 'item-coin-shadow.png',
+  'sword': 'item-sword.png',
+  'key': 'item-key-shadow.png',
   'guard': 'red',
   'empty': 'transparent'
 }
