@@ -87,7 +87,7 @@ function Board(props) {
 
   const handleArrows = (key, e = null) => {
     if (gameState === 'playing') {
-      setDirection(handleKeys(key, e, lastDirection))
+      setGameDirection(handleKeys(key, e, lastDirection))
       setToggle(toggle => !toggle)
       setJumpToggle(jumpToggle => !jumpToggle)
       clearInterval(timer)
@@ -216,13 +216,20 @@ function Board(props) {
               }
             }
           } />
-          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
+          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} toggle={toggle} />)}
           {gameState !== 'playing' && <GameOver gameState={gameState} reset={() => reset(id)} history={props.history} />}
         </div>
       </div>
       <div className='border-game'></div>
       <div className='game-menu'>
-        <button className='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
+        <button className='game-back' onClick={() => props.history.push('/')}>Menu</button>
+        <div className='game-instructions'>
+          <p className='instruction-text'>Eat your fill and get through the door. It's locked though...</p>
+          <div className='instruction-break'></div>
+          <p className='instruction-text'>Also, watch out for the slime that guards the dungeon. Something sharp may be useful.</p>
+          <div className='instruction-break'></div>
+          <p className='instruction-text'>Go forth and slither!</p>
+        </div>
         <div className='game-controls'>
           <div></div>
           <button className='game-key' onClick={() => handleArrows('w')}>W</button>
