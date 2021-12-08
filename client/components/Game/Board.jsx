@@ -3,11 +3,13 @@ import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { prepForJS } from '../../../server/utils'
+import { playAudio } from '../../actions/audio'
 import { setDirection, setGameState, setTileContent } from '../../actions/game'
 import { setTilesState } from '../../actions/tiles'
 import { getLevelByIdAPI } from '../../apis/levels'
 import { handleKeys, handleDrop } from '../../utils/keyEventFunctions'
 import GameOver from './GameOver'
+import Sounds from './Sounds'
 import Tile from './Tile'
 
 function Board(props) {
@@ -28,6 +30,16 @@ function Board(props) {
   const [toggle, setToggle] = useState(true)
   const [jumpToggle, setJumpToggle] = useState(true)
   const [firstJump, setFirstJump] = useState(true)
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  useEffect(() => {
+    setIsFirstLoad(false)
+  }, [])
+
+  useEffect(() => {
+    if (!isFirstLoad) {
+      dispatch(playAudio('snake'))
+    }
+  }, [isFirstLoad])
 
   const tiles = useSelector(state => state.tiles)
 
@@ -37,6 +49,8 @@ function Board(props) {
     }
     setSnake(initial)
   }
+
+
 
   const reset = (id) => {
     getLevelByIdAPI(id).then(level => {
@@ -73,7 +87,7 @@ function Board(props) {
 
   const handleArrows = (key, e = null) => {
     if (gameState === 'playing') {
-      setDirection(handleKeys(key, e, lastDirection))
+      setGameDirection(handleKeys(key, e, lastDirection))
       setToggle(toggle => !toggle)
       setJumpToggle(jumpToggle => !jumpToggle)
       clearInterval(timer)
@@ -91,6 +105,10 @@ function Board(props) {
     for (let item of items) {
       if (tile.content.includes(item)) {
         setHolding(item)
+        if (!isFirstLoad) {
+          dispatch(playAudio(item))
+        }
+
         dispatch(setTileContent(tile.coord, tile.content.map(thing => thing === item ? 'empty' : thing)))
       }
     }
@@ -141,6 +159,7 @@ function Board(props) {
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
       if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
         dispatch(setGameState('lost - Concussion is death, who knew?'))
+        dispatch(playAudio('death'))
       } else {
         setSnake(newSnake)
         if (holding === 'none' && newHeadTile.content.includes('food')) {
@@ -168,10 +187,15 @@ function Board(props) {
     }
   }, [jumpToggle])
 
-
+  useEffect(() => {
+    if (!isFirstLoad) {
+      dispatch(playAudio('coin'))
+    }
+  }, [size])
 
   return (
     <>
+      <Sounds />
       <div className='game-board'>
         <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
           <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
@@ -187,17 +211,25 @@ function Board(props) {
             () => {
               if (holding !== 'none') {
                 setHolding('none')
+                dispatch(playAudio('drop-' + holding))
                 dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
               }
             }
           } />
-          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
+          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} toggle={toggle} />)}
           {gameState !== 'playing' && <GameOver gameState={gameState} reset={() => reset(id)} history={props.history} />}
         </div>
       </div>
       <div className='border-game'></div>
       <div className='game-menu'>
-        <button class='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
+        <button className='game-back' onClick={() => props.history.push('/')}>Menu</button>
+        <div className='game-instructions'>
+          <p className='instruction-text'>Eat your fill and get through the door. It's locked though...</p>
+          <div className='instruction-break'></div>
+          <p className='instruction-text'>Also, watch out for the slime that guards the dungeon. Something sharp may be useful.</p>
+          <div className='instruction-break'></div>
+          <p className='instruction-text'>Go forth and slither!</p>
+        </div>
         <div className='game-controls'>
           <div></div>
           <button className='game-key' onClick={() => handleArrows('w')}>W</button>
