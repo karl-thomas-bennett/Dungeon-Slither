@@ -35,6 +35,12 @@ function Board(props) {
     setIsFirstLoad(false)
   }, [])
 
+  useEffect(() => {
+    if (!isFirstLoad) {
+      dispatch(playAudio('snake'))
+    }
+  }, [isFirstLoad])
+
   const tiles = useSelector(state => state.tiles)
 
   const makeSnake = (initial, directionArr) => {
@@ -99,6 +105,10 @@ function Board(props) {
     for (let item of items) {
       if (tile.content.includes(item)) {
         setHolding(item)
+        if (!isFirstLoad) {
+          dispatch(playAudio(item))
+        }
+
         dispatch(setTileContent(tile.coord, tile.content.map(thing => thing === item ? 'empty' : thing)))
       }
     }
@@ -149,6 +159,7 @@ function Board(props) {
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
       if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
         dispatch(setGameState('lost - Concussion is death, who knew?'))
+        dispatch(playAudio('death'))
       } else {
         setSnake(newSnake)
         if (holding === 'none' && newHeadTile.content.includes('food')) {
@@ -200,6 +211,7 @@ function Board(props) {
             () => {
               if (holding !== 'none') {
                 setHolding('none')
+                dispatch(playAudio('drop-' + holding))
                 dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
               }
             }
