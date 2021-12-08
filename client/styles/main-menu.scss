@@ -1,3 +1,5 @@
+@import url('http://fonts.cdnfonts.com/css/snake-chan');
+
 .menu-logo {
   background-color: transparent;
 
@@ -19,41 +21,66 @@
 }
 
 .menu-buttons {
+  // background-color: #3B2226;
+
   position: fixed;
-  top: 40%;
-  right: 40%;
-  bottom: 20%;
-  left: 40%;
+  top: calc(100% * 4/9);
+  right: 30%;
+  bottom: calc(100% * 2/9);
+  left: 30%;
+  padding: 10px;
 
   display: grid;
-  grid-gap: 40px;
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 10px;
 }
 
 .menu-button {
-  background-color: white;
-  border-radius: 30px;
+  background-color: #AC5036;
+  color: black;
+  border-color: #893A34;
+  border-width: 5px;
+  font-size: larger;
+  font-family: 'VCR OSD Mono', sans-serif;
 
-  width: 100%;
-  height: 100%;
-
-  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.menu-button:hover {
+  background-color: #ED994F;
+  color: white;
+  border-color: #B65937;
 }
 
-.button-inner {
-  background-color: black;
-  border-radius: 25px;
+.menu-title {
+  position: fixed;
+  top: calc(100% * 1.5/9);
+  right: 10%;
+  bottom: calc(100% * 6.5/9);
+  left: 10%;
+  padding: 10px;
 
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  bottom: 3px;
-  left: 3px;
-
+  display: grid;
+  // grid-template-columns: repeat(42, 1fr);
+  grid-template-columns: repeat(52, 1fr);
+  grid-gap: 4px;
+}
+.letter-container {
+  justify-content: center;
   text-align: center;
 }
-
-.button-text {
-  color: #24C11D;
-  font-size: 5vh;
-  transform: translateY(30%);
+.menu-title-letter {
+  color: #AC5036;
+  font-family: 'Snake Chan', sans-serif;
+  font-size: 5.3vw;
 }
+.menu-title-letter:hover {
+  color: #ED994F;
+  transform: translateY(-5%);
+  cursor: default;
+}
+.title-gap-1 { grid-column: span 1; }
+.title-gap-2 { grid-column: span 2; }
+.title-gap-3 { grid-column: span 3; }
+.title-gap-4 { grid-column: span 4; }
+.title-gap-edge { grid-column: span 5; }

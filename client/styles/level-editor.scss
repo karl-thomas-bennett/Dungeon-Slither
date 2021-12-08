@@ -45,6 +45,11 @@
   padding-left: 20px;
   padding-right: 20px;
 }
+.header-input:hover {
+  background-color: #ED994F;
+  color: white;
+  border-color: #B65937;
+}
 
 .header-button {
   background-color: #AC5036;
@@ -56,6 +61,11 @@
 
   padding-left: 20px;
   padding-right: 20px;
+}
+.header-button:hover {
+  background-color: #ED994F;
+  color: white;
+  border-color: #B65937;
 }
 
 .editor-selection {
@@ -85,11 +95,15 @@
   padding-right: 20px;
   position: relative;
 }
-
-.selection-button:disabled {
+.selection-button:hover {
   background-color: #ED994F;
   color: white;
   border-color: #B65937;
+}
+.selection-button:disabled {
+  background-color: #d48845;
+  color: white;
+  border-color: #a54f30;
 }
 
 .selection-legend {

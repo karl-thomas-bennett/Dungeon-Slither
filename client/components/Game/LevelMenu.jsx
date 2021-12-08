@@ -23,13 +23,30 @@ const LevelMenu = (props) => {
     props.history.push('/game')
   }
 
-  return (
-    <ul>
-      {levels.map(level => (
-        <button className='level' key={level.id} onClick={() => playLevel(level)}>{level.name}</button>
-      ))}
-    </ul>
+  const refreshHandle = () => {
+    getLevelsAllAPI().then(data => setLevels(data))
+  }
 
+  const menuHandle = () => {
+    props.history.push('/')
+  }
+
+  return (
+    <>
+      <div className='level-header'>
+      <button className='level-button-left' onClick={menuHandle}>Menu</button>
+      <div className='level-title'>Pick a level to play</div>
+      <button className='level-button-right' onClick={refreshHandle}>Refresh</button>
+      </div>
+      <div className='border-level'></div>
+      <div className='level-body'>
+        <ul>
+          {levels.map(level => (
+            <button className='level' key={level.id} onClick={() => playLevel(level)}>{level.name}</button>
+          ))}
+        </ul>
+      </div>
+    </>
   )
 }
 
