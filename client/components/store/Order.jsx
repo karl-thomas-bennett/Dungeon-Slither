@@ -18,9 +18,9 @@ function Order (props) {
 
   return (
     <div className='order'>
-      <p className='name'>Order #{id}</p>
-      <p className='order-details'>Order placed: {createdAt}</p>
-      <p className='order-details'>
+      <p className='p name'>Order #{id}</p>
+      <p className='p order-details'>Order placed: {createdAt}</p>
+      <p className='p order-details'>
         <span className={`fa fa-circle ${status}`} aria-hidden="true"></span>
         Status: {status}
       </p>
@@ -45,11 +45,11 @@ function Order (props) {
           <>
             <button
               onClick={cancelOrder}
-              className='order-button'
+              className='button order-button'
             >Cancel Order</button>
             <button
               onClick={completeOrder}
-              className='order-button button-primary'
+              className='button order-button button-primary'
             >Order Received</button>
           </>
         }

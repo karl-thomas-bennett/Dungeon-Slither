@@ -12,7 +12,7 @@ function ErrorMessage (props) {
     props.errorMessage.length
       ? <div role='alert' className='error'>
         {props.errorMessage}
-        <button className='hide-error' onClick={hide}>Hide Error</button>
+        <button className='button hide-error' onClick={hide}>Hide Error</button>
       </div>
       : null
   )

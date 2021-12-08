@@ -35,7 +35,7 @@ function CartItem (props) {
           onChange={update} />
       </td>
       <td>
-        <button aria-label='delete' onClick={deleteItem}>
+        <button className='button' aria-label='delete' onClick={deleteItem}>
           <span className='fa fa-trash fa-2x' />Delete
         </button>
       </td>
