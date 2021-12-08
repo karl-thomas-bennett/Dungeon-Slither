@@ -97,15 +97,14 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
   return (
     <div className='tile' id={id} style={{ backgroundColor: style }}>
       <img src={`/tiles/${tileImg}.png`} className='tile-image' />
-      <div className='item' style={{ backgroundColor: item }}></div>
-      {
-        itemPos[0] === pos[0] && itemPos[1] === pos[1] &&
-        snakeItem !== 'none' && <Item item={snakeItem} direction={direction} />
+      {!(item === 'transparent' || item === 'red') ?
+        <img className='item' src={'/images/' + item} /> :
+        <div className='item' style={{ backgroundColor: item }} />
       }
       {
         snakeMap.includes(id) &&
         (
-          <SnakeSegment snake={snake} pos={pos} />
+          <SnakeSegment snake={snake} pos={pos} snakeItem={snakeItem} direction={direction} />
         )
       }
     </div>
