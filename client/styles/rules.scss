@@ -1,6 +1,4 @@
-@import url('http://fonts.cdnfonts.com/css/vcr-osd-mono');
-
-.level-header {
+.rules-header {
   background-color: #3B2226;
 
   position: fixed;
@@ -11,34 +9,16 @@
   padding: 10px;
 }
 
-.level-body {
+.rules-body {
   position: fixed;
-  top: calc(calc(100% * 1/9) + 10px);
+  top: calc(calc(100% * 1/9) + 20px);
   right: 0;
   bottom: 0;
   left: 0;
   padding: 10px;
 }
 
-.level {
-  background-color: #AC5036;
-  color: black;
-  border-color: #893A34;
-  border-width: 5px;
-  font-size: larger;
-  font-family: 'VCR OSD Mono', sans-serif;
-
-  width: 100%;
-  height: calc(calc(100vh * 1/9) - 10px);
-  margin-top: 10px;
-}
-.level:hover {
-  background-color: #ED994F;
-  color: white;
-  border-color: #B65937;
-}
-
-.border-level {
+.border-rules {
   background-color: #221A21;
 
   position: fixed;
@@ -48,7 +28,16 @@
   left: 0;
 }
 
-.level-button-left {
+.rules {
+  color: grey;
+  font-size: 2em;
+  font-family: 'VCR OSD Mono', sans-serif;
+}
+.rule {
+  padding: 20px;
+}
+
+.rules-button-left {
   background-color: #AC5036;
   color: black;
   border-color: #893A34;
@@ -62,13 +51,13 @@
   top: 10px;
   left: 10px;
 }
-.level-button-left:hover {
+.rules-button-left:hover {
   background-color: #ED994F;
   color: white;
   border-color: #B65937;
 }
 
-.level-button-right {
+.rules-button-right {
   background-color: #AC5036;
   color: black;
   border-color: #893A34;
@@ -82,13 +71,13 @@
   top: 10px;
   right: 10px;
 }
-.level-button-right:hover {
+.rules-button-right:hover {
   background-color: #ED994F;
   color: white;
   border-color: #B65937;
 }
 
-.level-title {
+.rules-title {
   color: #AC5036;
   font-size: 3em;
   font-family: 'VCR OSD Mono', sans-serif;

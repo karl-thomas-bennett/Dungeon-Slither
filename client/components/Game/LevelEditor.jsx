@@ -18,7 +18,7 @@ const LevelEditor = (props) => {
   const changeHandle  = (e) => { setNameData(e.target.value) } 
   const resetHandler  = ()  => { dispatch(resetLevelEditor()) }
   const menuHandle    = ()  => { dispatch(resetLevelEditor()); props.history.push('/') }
-  const rulesHandle   = ()  => { props.history.push('/editor/rules') }
+  const rulesHandle   = ()  => { props.history.push('/rules') }
   const submitHandler = ()  => { if (nameData.length > 0) {
     const level = {
       name: nameData,
