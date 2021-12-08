@@ -1,0 +1,26 @@
+
+/*
+Store header styling
+*/
+.store-header {
+  // position: fixed;
+
+  overflow: hidden;
+  background-color: grey;
+  padding: 20px 10px;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 200px;
+  
+  display: flex;
+  flex-direction: collumn;
+  justify-content: center;
+
+  .store-logo{
+    display: flex;
+    top: 0;
+    // background-color: red;
+  }
+
+ }

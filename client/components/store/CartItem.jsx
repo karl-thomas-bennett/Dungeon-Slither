@@ -34,9 +34,11 @@ function CartItem (props) {
           value={displayQuantity}
           onChange={update} />
       </td>
-      <td><button aria-label='delete' onClick={deleteItem}>
-        <span className='fa fa-trash fa-2x' />
-      </button></td>
+      <td>
+        <button aria-label='delete' onClick={deleteItem}>
+          <span className='fa fa-trash fa-2x' />Delete
+        </button>
+      </td>
     </tr>
   )
 }
