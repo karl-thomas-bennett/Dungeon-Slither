@@ -31,7 +31,7 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
         dispatch(setTileContent(id, content.map(item => item === 'guard' ? 'empty' : item)))
       }
       if (snake[0][0] === pos[0] && snake[0][1] === pos[1]) {
-        dispatch(setGameState('lost - The guard absolutely slaughtered you'))
+        dispatch(setGameState('lost - The slime ate you'))
       }
     }
     if (content.includes('door-out')) {
@@ -97,7 +97,7 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
   return (
     <div className='tile' id={id} style={{ backgroundColor: style }}>
       <img src={`/tiles/${tileImg}.png`} className='tile-image' />
-      {!(item === 'transparent' || item === 'red') ?
+      {item !== 'transparent' ?
         <img className='item' src={'/images/' + item} /> :
         <div className='item' style={{ backgroundColor: item }} />
       }

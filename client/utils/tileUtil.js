@@ -6,7 +6,7 @@ const map = {
   'food': 'item-coin-shadow.png',
   'sword': 'item-sword.png',
   'key': 'item-key-shadow.png',
-  'guard': 'red',
+  'guard': 'slime.png',
   'empty': 'transparent'
 }
 
