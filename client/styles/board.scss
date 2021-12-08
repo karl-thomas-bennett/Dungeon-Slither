@@ -26,7 +26,15 @@ body {
 }
 
 .board {
-  max-width: 140vh;
+  max-width: 120vh;
+  max-height: 80vh;
+  margin: 60px auto;
+  display: grid;
+  // transform: translateX(-20%);
+}
+
+.board-editor {
+  max-width: 80vh;
   max-height: 80vh;
   margin: 60px auto;
   display: grid;
@@ -61,6 +69,14 @@ body {
   width: 100%;
   z-index: 0;
   bottom: 0;
+}
+
+.item-editor {
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  bottom: 20%;
+  left: 20%;
 }
 
 .up {

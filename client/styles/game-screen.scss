@@ -1,0 +1,36 @@
+.game-board {
+  background-color: transparent;
+
+  position: fixed;
+  top: 0;
+  right: 30%;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  align-content: center;
+}
+
+.game-menu {
+  background-color: #3B2226;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: calc(70% + 10px);
+  padding: 10px;
+
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  grid-gap: 10px;
+}
+
+.border-game {
+  background-color: #221A21;
+
+  position: fixed;
+  top: 0;
+  right: calc(30% - 10px);
+  bottom: 0;
+  left: 70%;
+}

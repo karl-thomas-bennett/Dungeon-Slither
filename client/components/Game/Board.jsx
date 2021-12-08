@@ -133,27 +133,33 @@ function Board(props) {
 
 
   return (
-    <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
-        if (gameState === 'playing') {
-          setDirection(handleKeys(key, e, lastDirection))
-          setToggle(toggle => !toggle)
-          setJumpToggle(jumpToggle => !jumpToggle)
-          clearInterval(timer)
-        }
-      }
-      } />
-      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={
-        () => {
-          if (holding !== 'none') {
-            setHolding('none')
-            dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+    <>
+      <div className='game-board'>
+        <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
+          <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
+            if (gameState === 'playing') {
+              setDirection(handleKeys(key, e, lastDirection))
+              setToggle(toggle => !toggle)
+              setJumpToggle(jumpToggle => !jumpToggle)
+              clearInterval(timer)
+            }
           }
-        }
-      } />
-      {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
-      {gameState !== 'playing' && <GameOver gameState={gameState} />}
-    </div>
+          } />
+          <KeyboardEventHandler handleKeys={['space']} onKeyEvent={
+            () => {
+              if (holding !== 'none') {
+                setHolding('none')
+                dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+              }
+            }
+          } />
+          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
+          {gameState !== 'playing' && <GameOver gameState={gameState} />}
+        </div>
+      </div>
+      <div className='border-game'></div>
+      <div className='game-menu'></div>
+    </>
   )
 }
 
