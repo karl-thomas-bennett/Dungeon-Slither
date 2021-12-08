@@ -75,7 +75,6 @@
   color: white;
   border-color: #a54f30;
 }
-
 .key-space {
   grid-column: span 3;
 }
@@ -92,7 +91,7 @@
   position: absolute;
   height: calc(100% * 1/9);
   width: 15vw;
-  top: 10px;
+  top: 75px;
   right: 7.5vw;
 }
 .game-back:hover {

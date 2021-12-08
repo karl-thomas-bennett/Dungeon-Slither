@@ -73,7 +73,7 @@ function Board(props) {
 
   const handleArrows = (key, e = null) => {
     if (gameState === 'playing') {
-      setDirection(handleKeys(key, e, lastDirection))
+      setGameDirection(handleKeys(key, e, lastDirection))
       setToggle(toggle => !toggle)
       setJumpToggle(jumpToggle => !jumpToggle)
       clearInterval(timer)
