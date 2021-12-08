@@ -72,7 +72,8 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
   const checkNeigbor = (x, y) => {
     if (tiles.find(tile => tile.coord === `${y},${x}`)) {
       const tile = tiles.find(tile => tile.coord === `${y},${x}`).content[0]
-      if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
+      // if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
+      if (tile === 'wall') {
         return 'w'
       } else {
         return 'f'

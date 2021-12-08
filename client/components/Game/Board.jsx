@@ -197,7 +197,14 @@ function Board(props) {
       </div>
       <div className='border-game'></div>
       <div className='game-menu'>
-        <button class='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
+        <button className='game-back' onClick={() => props.history.push('/')}>Menu</button>
+        <div className='game-instructions'>
+          <p className='instruction-text'>Eat your fill and get through the door. It's locked though...</p>
+          <div className='instruction-break'></div>
+          <p className='instruction-text'>Also, watch out for the slime that guards the dungeon. Something sharp may be useful.</p>
+          <div className='instruction-break'></div>
+          <p className='instruction-text'>Go forth and slither!</p>
+        </div>
         <div className='game-controls'>
           <div></div>
           <button className='game-key' onClick={() => handleArrows('w')}>W</button>
