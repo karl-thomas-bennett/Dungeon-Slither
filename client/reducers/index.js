@@ -10,6 +10,7 @@ import cart from './cart'
 import errorMessage from './errorMessage'
 import waiting from './waiting'
 import order from './order'
+import audio from './audio'
 
 export default combineReducers({
   game,
@@ -21,5 +22,6 @@ export default combineReducers({
   cart,
   order,
   errorMessage,
-  waiting
+  waiting,
+  audio
 })

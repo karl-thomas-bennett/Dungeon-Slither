@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { playAudio } from '../../actions/audio'
 import { setGameState, setTileContent } from '../../actions/game'
 import { getStyle, getItemPos } from '../../utils/tileUtil'
-import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
 const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
@@ -33,14 +33,18 @@ const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
     if (content.includes('guard') && snake.length > 0) {
       if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && snakeItem === 'sword') {
         dispatch(setTileContent(id, content.map(item => item === 'guard' ? 'empty' : item)))
+        dispatch(playAudio('kill'))
       }
       if (snake[0][0] === pos[0] && snake[0][1] === pos[1]) {
+        dispatch(playAudio('death'))
         dispatch(setGameState('lost - The slime ate you'))
       }
     }
     if (content.includes('door-out')) {
       if (itemPos[0] === pos[0] && itemPos[1] === pos[1] && snakeItem === 'key') {
         dispatch(setGameState('won'))
+        dispatch(playAudio('win'))
+        dispatch(playAudio('unlock'))
       }
     }
   }, [snake])
