@@ -34,9 +34,9 @@ const LevelMenu = (props) => {
   return (
     <>
       <div className='level-header'>
-      <button className='level-button-left' onClick={menuHandle}>Menu</button>
-      <div className='level-title'>Pick a level to play</div>
-      <button className='level-button-right' onClick={refreshHandle}>Refresh</button>
+        <button className='level-button-left' onClick={menuHandle}>Menu</button>
+        <div className='level-title'>Pick a level to play</div>
+        <button className='level-button-right' onClick={refreshHandle}>Refresh</button>
       </div>
       <div className='border-level'></div>
       <div className='level-body'>

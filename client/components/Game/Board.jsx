@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
-import { setGameState, setTileContent } from '../../actions/game'
+import { useParams } from 'react-router'
+import { prepForJS } from '../../../server/utils'
+import { setDirection, setGameState, setTileContent } from '../../actions/game'
+import { setTilesState } from '../../actions/tiles'
+import { getLevelByIdAPI } from '../../apis/levels'
 import { handleKeys, handleDrop } from '../../utils/keyEventFunctions'
 import GameOver from './GameOver'
 import Tile from './Tile'
 
 function Board(props) {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const boardSize = 20
 
@@ -17,7 +22,7 @@ function Board(props) {
   const [timer, setTimer] = useState(0)
   const gameState = game.gameState
   const [snake, setSnake] = useState(initial)
-  const [direction, setDirection] = useState(game.direction)
+  const [direction, setGameDirection] = useState(game.direction)
   const [lastDirection, setLastDirection] = useState('left')
   const [holding, setHolding] = useState('none')
   const [toggle, setToggle] = useState(true)
@@ -33,21 +38,35 @@ function Board(props) {
     setSnake(initial)
   }
 
+  const reset = (id) => {
+    getLevelByIdAPI(id).then(level => {
+      const tiles = prepForJS(level.tiles)
+      dispatch(setGameState('playing'))
+      dispatch(setDirection(level.direction))
+      dispatch(setTilesState(tiles))
+      let initial = [tiles.find(tile => tile.content.includes('door-in')).coord.split(',').map(a => Number(a))]
+      const dirObj = {
+        down: [-1, 0],
+        up: [1, 0],
+        right: [0, -1],
+        left: [0, 1]
+      }
+      makeSnake(initial, dirObj[level.direction])
+      setGameDirection(level.direction)
+      setSize(6)
+    })
+  }
   useEffect(() => {
-    let initial = [tiles.find(tile => tile.content.includes('door-in')).coord.split(',').map(a => Number(a))]
-    const dirObj = {
-      down: [-1, 0],
-      up: [1, 0],
-      right: [0, -1],
-      left: [0, 1]
+    if (id > 0) {
+      reset(id)
     }
-    makeSnake(initial, dirObj[direction])
   }, [])
+
+
 
 
   useEffect(() => {
     handleSnakeDangerously(direction)
-    setLastDirection(direction)
   }, [toggle])
 
   const handleItems = (items, tile) => {
@@ -117,6 +136,7 @@ function Board(props) {
     } else if (gameState === 'won') {
       setSnake(newSnake)
     }
+    setLastDirection(direction)
   }
 
   useEffect(() => {
@@ -138,7 +158,7 @@ function Board(props) {
         <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
           <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
             if (gameState === 'playing') {
-              setDirection(handleKeys(key, e, lastDirection))
+              setGameDirection(handleKeys(key, e, lastDirection))
               setToggle(toggle => !toggle)
               setJumpToggle(jumpToggle => !jumpToggle)
               clearInterval(timer)
@@ -154,7 +174,7 @@ function Board(props) {
             }
           } />
           {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
-          {gameState !== 'playing' && <GameOver gameState={gameState} />}
+          {gameState !== 'playing' && <GameOver gameState={gameState} reset={() => reset(id)} history={props.history} />}
         </div>
       </div>
       <div className='border-game'></div>
