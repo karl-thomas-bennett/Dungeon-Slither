@@ -5,14 +5,18 @@ import { getStyle, getItemPos } from '../../utils/tileUtil'
 import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
-const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
+const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
   const dispatch = useDispatch()
   const tiles = useSelector(store => store.tiles)
+  const gameState = useSelector(state => state.game.gameState)
   const [style, setStyle] = useState('')
   const [item, setItem] = useState('')
   const [tileImg, setTileImg] = useState('')
+  const [closed, setClosed] = useState(false)
+  const [count, setCount] = useState(0)
   const coord = id
   const terrain = content[0]
+  const floorArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
   const snakeMap = snake.map(segment => {
     return segment[0] + ',' + segment[1]
@@ -45,10 +49,41 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
     calcImage()
   }, [])
 
+  useEffect(() => {
+    checkSnakeMap()
+  }, [toggle])
+
+  useEffect(() => {
+    if (content[0] === 'door-out') {
+      if (gameState === 'won') {
+        setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
+      }
+    }
+  }, [gameState])
+
+  const checkSnakeMap = () => {
+    if (content[0] === 'door-in') {
+      if (snake.length > 0) {
+        if (count < snake.length) {
+          const newCount = count + 1
+          setCount(newCount)
+        } else {
+          if (closed === false) {
+            setClosed(true)
+            setTileImg('ffff')
+          }
+        }
+      }
+    }
+  }
+
   const calcImage = () => {
     if (terrain === 'floor') {
-      const floorArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
       setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
+    } else if (terrain === 'door-in') {
+      setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
+    } else if (terrain === 'door-out') {
+      setTileImg('ffff')
     } else {
       const coordX = Number(coord.split(',')[1])
       const coordY = Number(coord.split(',')[0])
@@ -72,7 +107,8 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
   const checkNeigbor = (x, y) => {
     if (tiles.find(tile => tile.coord === `${y},${x}`)) {
       const tile = tiles.find(tile => tile.coord === `${y},${x}`).content[0]
-      if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
+      // if (tile === 'wall' || tile === 'door-in' || tile === 'door-out') {
+      if (tile === 'wall') {
         return 'w'
       } else {
         return 'f'
