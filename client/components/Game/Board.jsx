@@ -53,7 +53,9 @@ function Board(props) {
       }
       makeSnake(initial, dirObj[level.direction])
       setGameDirection(level.direction)
+      setLastDirection(level.direction)
       setSize(6)
+      setHolding('none')
     })
   }
   useEffect(() => {
