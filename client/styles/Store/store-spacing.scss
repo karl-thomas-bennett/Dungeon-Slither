@@ -1,6 +1,6 @@
   /* Spacing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-button,
+//button,
 .button {
   margin-bottom: 1rem; }
 input{
@@ -15,8 +15,14 @@ blockquote,
 dl,
 figure,
 table,
-p,
-ul,
+.p {
+  margin-bottom: 2.5rem; 
+  color: white;
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+}
+.ul,
 ol {
   margin-bottom: 2.5rem; 
   color: white

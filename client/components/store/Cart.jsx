@@ -42,7 +42,7 @@ function Cart (props) {
         
         {/* <div className='store-actions'>
           <div className='continue-shopping'> */}
-            <p>
+            <p className='p'>
               <NavLink to='/store'><ul>Continue shopping</ul></NavLink>
             </p>
           {/* </div>
@@ -51,7 +51,7 @@ function Cart (props) {
             <span>
               {children}
               <button
-                className='button-primary'
+                className='button button-primary'
                 onClick={submitCart}>
                 Place Order
               </button>
@@ -63,7 +63,7 @@ function Cart (props) {
     )
     : 
     <div className = 'empty-cart'>
-      <p>Your cart is empty! Start shopping <NavLink to='/store'>here</NavLink></p>
+      <p className='p'>Your cart is empty! Start shopping <NavLink to='/store'>here</NavLink></p>
     </div>
 }
 

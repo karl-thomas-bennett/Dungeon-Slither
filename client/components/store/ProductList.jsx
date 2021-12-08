@@ -25,7 +25,7 @@ function ProductList (props) {
   return (
     <div className='productlist'>
       <div className='welcome'>
-        <p>
+        <p className='p'>
           Welcome! choose from our selection of merch and don&apos;t
           hesitate to let us know if we can answer any of your questions.
         </p>

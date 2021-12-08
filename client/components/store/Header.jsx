@@ -5,7 +5,7 @@ function Header () {
     <>
       <div className = 'store-header'>
         <div className = 'store-logo'>
-          <h1>
+          <h1 className='h1'>
             {/* <span className='store-title' aria-hidden='true' /> */}
             {' '}Dungeon Slither Merch{' '}
             {/* <span className='store-title' aria-hidden='true' /> */}

@@ -14,13 +14,13 @@ function ProductListItem (props) {
         <img src={product.img} alt="" />
       </div>
       <div className='product-details'>
-        <p className='name'>Name: {product.name}</p>
-        <p className='description'>Description: {product.description}</p>
-        <p className='price'>Price: ${product.price}</p>
-        <p className='quantity'>Stock: {product.stock}</p>
-      <p>
+        <p className='p name'>Name: {product.name}</p>
+        <p className='p description'>Description: {product.description}</p>
+        <p className='p price'>Price: ${product.price}</p>
+        <p className='p quantity'>Stock: {product.stock}</p>
+      <p className='p'>
         <button
-          className='cart-link'
+          className='button cart-link'
           onClick={addToCart}>Add to cart</button>
       </p>
       </div>
