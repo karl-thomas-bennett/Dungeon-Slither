@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
 import { getStyle, getItemPos } from '../../utils/tileUtil'
-import Item from './Item'
 import SnakeSegment from './SnakeSegment'
 
 const Tile = ({ content, snake, id, direction, item: snakeItem }) => {

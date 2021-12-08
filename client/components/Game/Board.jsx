@@ -3,11 +3,13 @@ import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { prepForJS } from '../../../server/utils'
+import { playAudio } from '../../actions/audio'
 import { setDirection, setGameState, setTileContent } from '../../actions/game'
 import { setTilesState } from '../../actions/tiles'
 import { getLevelByIdAPI } from '../../apis/levels'
 import { handleKeys, handleDrop } from '../../utils/keyEventFunctions'
 import GameOver from './GameOver'
+import Sounds from './Sounds'
 import Tile from './Tile'
 
 function Board(props) {
@@ -28,6 +30,10 @@ function Board(props) {
   const [toggle, setToggle] = useState(true)
   const [jumpToggle, setJumpToggle] = useState(true)
   const [firstJump, setFirstJump] = useState(true)
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  useEffect(() => {
+    setIsFirstLoad(false)
+  }, [])
 
   const tiles = useSelector(state => state.tiles)
 
@@ -37,6 +43,8 @@ function Board(props) {
     }
     setSnake(initial)
   }
+
+
 
   const reset = (id) => {
     getLevelByIdAPI(id).then(level => {
@@ -168,10 +176,15 @@ function Board(props) {
     }
   }, [jumpToggle])
 
-
+  useEffect(() => {
+    if (!isFirstLoad) {
+      dispatch(playAudio('coin'))
+    }
+  }, [size])
 
   return (
     <>
+      <Sounds />
       <div className='game-board'>
         <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
           <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
@@ -197,7 +210,7 @@ function Board(props) {
       </div>
       <div className='border-game'></div>
       <div className='game-menu'>
-        <button class='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
+        <button className='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
         <div className='game-controls'>
           <div></div>
           <button className='game-key' onClick={() => handleArrows('w')}>W</button>
