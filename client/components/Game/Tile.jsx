@@ -47,8 +47,8 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
 
   const calcImage = () => {
     if (terrain === 'floor') {
-      const floorArr = ['floor-a', 'floor-b']
-      setTileImg(floorArr[Math.floor(Math.random() * floorArr.length)])
+      const floorArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+      setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
     } else {
       const coordX = Number(coord.split(',')[1])
       const coordY = Number(coord.split(',')[0])
