@@ -191,7 +191,7 @@ function Board(props) {
               }
             }
           } />
-          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
+          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} toggle={toggle} />)}
           {gameState !== 'playing' && <GameOver gameState={gameState} reset={() => reset(id)} history={props.history} />}
         </div>
       </div>
