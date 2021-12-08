@@ -1,0 +1,86 @@
+@import url('http://fonts.cdnfonts.com/css/snake-chan');
+
+.menu-logo {
+  background-color: transparent;
+
+  position: fixed;
+  top: 10%;
+  right: 20%;
+  bottom: 70%;
+  left: 20%;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.logo-img {
+  aspect-ratio: 887/126;
+  max-width: 887px;
+  max-height: 126px;
+}
+
+.menu-buttons {
+  // background-color: #3B2226;
+
+  position: fixed;
+  top: calc(100% * 4/9);
+  right: 30%;
+  bottom: calc(100% * 2/9);
+  left: 30%;
+  padding: 10px;
+
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.menu-button {
+  background-color: #AC5036;
+  color: black;
+  border-color: #893A34;
+  border-width: 5px;
+  font-size: larger;
+  font-family: 'VCR OSD Mono', sans-serif;
+
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.menu-button:hover {
+  background-color: #ED994F;
+  color: white;
+  border-color: #B65937;
+}
+
+.menu-title {
+  position: fixed;
+  top: calc(100% * 1.5/9);
+  right: 10%;
+  bottom: calc(100% * 6.5/9);
+  left: 10%;
+  padding: 10px;
+
+  display: grid;
+  // grid-template-columns: repeat(42, 1fr);
+  grid-template-columns: repeat(52, 1fr);
+  grid-gap: 4px;
+}
+.letter-container {
+  justify-content: center;
+  text-align: center;
+}
+.menu-title-letter {
+  color: #AC5036;
+  font-family: 'Snake Chan', sans-serif;
+  font-size: 5.3vw;
+}
+.menu-title-letter:hover {
+  color: #ED994F;
+  transform: translateY(-5%);
+  cursor: default;
+}
+.title-gap-1 { grid-column: span 1; }
+.title-gap-2 { grid-column: span 2; }
+.title-gap-3 { grid-column: span 3; }
+.title-gap-4 { grid-column: span 4; }
+.title-gap-edge { grid-column: span 5; }

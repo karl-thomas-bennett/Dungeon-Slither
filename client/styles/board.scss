@@ -5,7 +5,10 @@
 }
 
 html {
-  background-color: #E5E5E5;
+  // background-color: #E5E5E5;
+  // background-color: rgb(15, 15, 15);
+  // background-color: rgb(50, 50, 50);
+  background-color: rgb(25, 25, 25);
   height: 100%;
 }
 
@@ -19,13 +22,23 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: auto;
 }
 
 .board {
+  max-width: 120vh;
+  max-height: 80vh;
+  margin: 60px auto;
+  display: grid;
+  // transform: translateX(-20%);
+}
+
+.board-editor {
   max-width: 80vh;
   max-height: 80vh;
   margin: 60px auto;
   display: grid;
+  // transform: translateY(15%);
 }
 
 .tile {
@@ -34,6 +47,13 @@ body {
   // border-style: dashed;
   // border-color: rgb(50, 50, 50);
   // border-width: 1px;
+}
+.tile-editor {
+  position: relative;
+  aspect-ratio: 1/1;
+  border-style: dashed;
+  border-color: rgb(50, 50, 50);
+  border-width: 1px;
 }
 
 .tile svg {
@@ -46,8 +66,30 @@ body {
 
 .item {
   position: absolute;
+  width: 100%;
+  z-index: 0;
+  bottom: 0;
+}
+
+.item-editor {
+  position: absolute;
   top: 20%;
+  right: 20%;
   bottom: 20%;
   left: 20%;
-  right: 20%;
+}
+
+.up {
+  transform: translateY(-160%);
+}
+.down {
+  bottom: -25%;
+  z-index: 1;
+}
+.left {
+  transform: translate(-65%, -30%);
+}
+.right {
+  transform: translate(65%, -30%);
+  z-index: 1;
 }

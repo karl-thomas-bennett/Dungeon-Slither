@@ -21,7 +21,8 @@ function createProduct (orderLine) {
   return {
     id: orderLine.productId,
     name: orderLine.name,
-    quantity: orderLine.quantity
+    quantity: orderLine.quantity,
+    price: orderLine.quantity * orderLine.price
   }
 }
 
@@ -51,6 +52,7 @@ function formatOrder (orderLines) {
 }
 
 function formatOrderList (orderLines) {
+  console.log(orderLines)
   const orderList = []
   orderLines.forEach(item => {
     const order = orderList.find(o => o.id === item.orderId)

@@ -1,82 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
-import { setGameState, setTileContent } from '../../actions/game'
+import { useParams } from 'react-router'
+import { prepForJS } from '../../../server/utils'
+import { setDirection, setGameState, setTileContent } from '../../actions/game'
+import { setTilesState } from '../../actions/tiles'
+import { getLevelByIdAPI } from '../../apis/levels'
+import { handleKeys, handleDrop } from '../../utils/keyEventFunctions'
+import GameOver from './GameOver'
 import Tile from './Tile'
 
 function Board(props) {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const boardSize = 20
-  // const tiles = []
-  // for (let i = 1; i <= boardSize; i++) {
-  //   for (let j = 1; j <= boardSize; j++) {
-  //     tiles.push(j + ', ' + i)
-  //   }
-  // }
 
   let initial = []
   const [size, setSize] = useState(6)
 
   const game = useSelector(state => state.game)
+  const [timer, setTimer] = useState(0)
   const gameState = game.gameState
   const [snake, setSnake] = useState(initial)
-  const [direction, setDirection] = useState(game.direction)
+  const [direction, setGameDirection] = useState(game.direction)
   const [lastDirection, setLastDirection] = useState('left')
   const [holding, setHolding] = useState('none')
   const [toggle, setToggle] = useState(true)
+  const [jumpToggle, setJumpToggle] = useState(true)
+  const [firstJump, setFirstJump] = useState(true)
 
   const tiles = useSelector(state => state.tiles)
-  const handleKeys = (key, e) => {
-    switch (key) {
-      case 'w':
-        if (lastDirection !== 'down') {
-          setDirection('up')
-        }
-        break;
-      case 'd':
-        if (lastDirection !== 'left') {
-          setDirection('right')
-        }
-        break;
-      case 's':
-        if (lastDirection !== 'up') {
-          setDirection('down')
-        }
-        break;
-      case 'a':
-        if (lastDirection !== 'right') {
-          setDirection('left')
-        }
-        break;
-    }
-  }
-
-  const getNeibours = (coord) => {
-    const arrayCoord = coord.split(',').map(a => Number(a))
-    return [[arrayCoord[0] + 1, arrayCoord[1]].join(), [arrayCoord[0] - 1, arrayCoord[1]].join(), [arrayCoord[0], arrayCoord[1] + 1].join(), [arrayCoord[0], arrayCoord[1] - 1].join()]
-  }
-
-  const handleDrop = (key, e) => {
-    setHolding('none')
-    let dropPoint = tiles.find(tile => tile.coord === snake[0].join())
-    const stack = [dropPoint]
-    const visited = []
-    while (stack.length > 0) {
-      let t = stack.shift()
-      visited.push[t.coord]
-      if (!t.content.includes('empty')) {
-        for (let neighbour of getNeibours(dropPoint.coord)) {
-          if (!visited.includes(neighbour)) {
-            stack.push(tiles.find(tile => tile.coord === neighbour))
-          }
-        }
-      } else {
-        dropPoint = t
-        break
-      }
-    }
-    dispatch(setTileContent(dropPoint.coord, dropPoint.content.map(thing => thing === 'empty' ? holding : thing)))
-  }
 
   const makeSnake = (initial, directionArr) => {
     for (let i = 1; i < size; i++) {
@@ -85,22 +38,54 @@ function Board(props) {
     setSnake(initial)
   }
 
+  const reset = (id) => {
+    getLevelByIdAPI(id).then(level => {
+      const tiles = prepForJS(level.tiles)
+      dispatch(setGameState('playing'))
+      dispatch(setDirection(level.direction))
+      dispatch(setTilesState(tiles))
+      let initial = [tiles.find(tile => tile.content.includes('door-in')).coord.split(',').map(a => Number(a))]
+      const dirObj = {
+        down: [-1, 0],
+        up: [1, 0],
+        right: [0, -1],
+        left: [0, 1]
+      }
+      makeSnake(initial, dirObj[level.direction])
+      setGameDirection(level.direction)
+      setLastDirection(level.direction)
+      setSize(6)
+      setHolding('none')
+    })
+  }
   useEffect(() => {
-    let initial = [tiles.find(tile => tile.content.includes('door-in')).coord.split(',').map(a => Number(a))]
-    const dirObj = {
-      down: [-1, 0],
-      up: [1, 0],
-      right: [0, -1],
-      left: [0, 1]
+    if (id > 0) {
+      reset(id)
     }
-    makeSnake(initial, dirObj[direction])
   }, [])
+
+
 
 
   useEffect(() => {
     handleSnakeDangerously(direction)
-    setLastDirection(direction)
   }, [toggle])
+
+  const handleArrows = (key, e = null) => {
+    if (gameState === 'playing') {
+      setDirection(handleKeys(key, e, lastDirection))
+      setToggle(toggle => !toggle)
+      setJumpToggle(jumpToggle => !jumpToggle)
+      clearInterval(timer)
+    }
+  }
+
+  const handleSpace = () => {
+    if (holding !== 'none') {
+      setHolding('none')
+      dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+    }
+  }
 
   const handleItems = (items, tile) => {
     for (let item of items) {
@@ -112,9 +97,9 @@ function Board(props) {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    setTimer(setInterval(() => {
       setToggle(toggle => !toggle)
-    }, 300)
+    }, 300))
     return () => clearInterval(timer)
   }, [])
   const handleSnakeDangerously = (direction) => {
@@ -154,9 +139,8 @@ function Board(props) {
     if (gameState === 'playing') {
       const newHeadTile = tiles.find(tile => tile.coord === newSnake[0].join())
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
-      console.log(newHeadTile.coord)
       if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
-        dispatch(setGameState('lost - concussion is death, who knew?'))
+        dispatch(setGameState('lost - Concussion is death, who knew?'))
       } else {
         setSnake(newSnake)
         if (holding === 'none' && newHeadTile.content.includes('food')) {
@@ -170,17 +154,61 @@ function Board(props) {
     } else if (gameState === 'won') {
       setSnake(newSnake)
     }
+    setLastDirection(direction)
   }
 
+  useEffect(() => {
+    if (firstJump) {
+      setFirstJump(false)
+    } else {
+      setTimer(setInterval(() => {
+        setToggle(toggle => !toggle)
+      }, 300))
+      return () => clearInterval(timer)
+    }
+  }, [jumpToggle])
 
 
 
   return (
-    <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-      <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => gameState === 'playing' ? handleKeys(key, e) : ''} />
-      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={handleDrop} />
-      {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
-    </div>
+    <>
+      <div className='game-board'>
+        <div className="board" style={{ gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
+          <KeyboardEventHandler handleKeys={['alphabetic']} onKeyEvent={(key, e) => {
+            if (gameState === 'playing') {
+              setGameDirection(handleKeys(key, e, lastDirection))
+              setToggle(toggle => !toggle)
+              setJumpToggle(jumpToggle => !jumpToggle)
+              clearInterval(timer)
+            }
+          }
+          } />
+          <KeyboardEventHandler handleKeys={['space']} onKeyEvent={
+            () => {
+              if (holding !== 'none') {
+                setHolding('none')
+                dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+              }
+            }
+          } />
+          {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
+          {gameState !== 'playing' && <GameOver gameState={gameState} reset={() => reset(id)} history={props.history} />}
+        </div>
+      </div>
+      <div className='border-game'></div>
+      <div className='game-menu'>
+        <button class='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
+        <div className='game-controls'>
+          <div></div>
+          <button className='game-key' onClick={() => handleArrows('w')}>W</button>
+          <div></div>
+          <button className='game-key' onClick={() => handleArrows('a')}>A</button>
+          <button className='game-key' onClick={() => handleArrows('s')}>S</button>
+          <button className='game-key' onClick={() => handleArrows('d')}>D</button>
+          <button className='game-key key-space' onClick={handleSpace}>SPACE</button>
+        </div>
+      </div>
+    </>
   )
 }
 

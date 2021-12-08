@@ -19,14 +19,14 @@ function ProductList (props) {
     const { id, name } = product
     const newCartItem = { id, name }
     dispatch(addToCart(newCartItem))
-    history.push('/cart')
+    history.push('/store/cart')
   }
 
   return (
     <div className='productlist'>
       <div className='welcome'>
         <p>
-          Welcome! Please choose from our delicious selection and don&apos;t
+          Welcome! choose from our selection of merch and don&apos;t
           hesitate to let us know if we can answer any of your questions.
         </p>
       </div>
