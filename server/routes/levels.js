@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
   const levelId = req.params.id
   db.getLevelById(levelId)
     .then(level => {
-      return res.json(prepForJS(level))
+      return res.json(level)
     })
     .catch(err => {
       res.status(500).send('DATABASE ERROR: ' + err.message)

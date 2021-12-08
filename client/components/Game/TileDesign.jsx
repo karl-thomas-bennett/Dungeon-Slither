@@ -97,14 +97,6 @@ const TileDesign = (props) => {
       if (val === 'floor' || val === 'wall') { dispatch(setTerrainType(coord, val)) }
       if (val === 'wall') { removeItem() }
       if (terrainColor === 'grey') {
-        if (val === 'guard') {
-          if (levelDataState.guard === false) {
-            dispatch(setGuard(true))
-            dispatch(addItemToTile(coord, val))
-          } else {
-            alert('You have already placed a guard')
-          }
-        }
         if (val === 'key') {
           if (levelDataState.key === false) {
             dispatch(setKey(true))
@@ -121,7 +113,7 @@ const TileDesign = (props) => {
             alert('You have already placed a sword')
           }
         }
-        if (val === 'food') {
+        if (val === 'food' || val === 'guard') {
           dispatch(addItemToTile(coord, val))
         }
       }
@@ -198,7 +190,7 @@ const TileDesign = (props) => {
 
   return (
     <div className='tile-editor' id={props.id} style={{ backgroundColor: terrainColor }} onClick={clickHandler}>
-      <div className='item' style={{ backgroundColor: itemColor }}></div>
+      <div className='item-editor' style={{ backgroundColor: itemColor }}></div>
     </div>
   )
 }

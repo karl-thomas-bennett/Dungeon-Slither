@@ -1,0 +1,94 @@
+.rules-header {
+  background-color: #3B2226;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: calc(calc(100% * 8/9) - 10px);
+  left: 0;
+  padding: 10px;
+}
+
+.rules-body {
+  position: fixed;
+  top: calc(calc(100% * 1/9) + 20px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+}
+
+.border-rules {
+  background-color: #221A21;
+
+  position: fixed;
+  top: calc(calc(100% * 1/9) + 10px);
+  right: 0;
+  bottom: calc(calc(100% * 8/9) - 20px);
+  left: 0;
+}
+
+.rules {
+  color: grey;
+  font-size: 2em;
+  font-family: 'VCR OSD Mono', sans-serif;
+}
+.rule {
+  padding: 20px;
+}
+
+.rules-button-left {
+  background-color: #AC5036;
+  color: black;
+  border-color: #893A34;
+  border-width: 5px;
+  font-size: larger;
+  font-family: 'VCR OSD Mono', sans-serif;
+
+  position: absolute;
+  height: calc(100% - 20px);
+  width: 15vw;
+  top: 10px;
+  left: 10px;
+}
+.rules-button-left:hover {
+  background-color: #ED994F;
+  color: white;
+  border-color: #B65937;
+}
+
+.rules-button-right {
+  background-color: #AC5036;
+  color: black;
+  border-color: #893A34;
+  border-width: 5px;
+  font-size: larger;
+  font-family: 'VCR OSD Mono', sans-serif;
+
+  position: absolute;
+  height: calc(100% - 20px);
+  width: 15vw;
+  top: 10px;
+  right: 10px;
+}
+.rules-button-right:hover {
+  background-color: #ED994F;
+  color: white;
+  border-color: #B65937;
+}
+
+.rules-title {
+  color: #AC5036;
+  font-size: 3em;
+  font-family: 'VCR OSD Mono', sans-serif;
+
+  position: absolute;
+  top: 10px;
+  right: calc(15vw + 20px);
+  bottom: 10px;
+  left: calc(15vw + 20px);
+  line-height: calc(calc(100vh * 1/9) - 20px);
+  display: table-cell;
+  text-align: center;
+  // vertical-align: middle;
+}

@@ -26,6 +26,14 @@ body {
 }
 
 .board {
+  max-width: 120vh;
+  max-height: 80vh;
+  margin: 60px auto;
+  display: grid;
+  // transform: translateX(-20%);
+}
+
+.board-editor {
   max-width: 80vh;
   max-height: 80vh;
   margin: 60px auto;
@@ -58,8 +66,30 @@ body {
 
 .item {
   position: absolute;
+  width: 100%;
+  z-index: 0;
+  bottom: 0;
+}
+
+.item-editor {
+  position: absolute;
   top: 20%;
+  right: 20%;
   bottom: 20%;
   left: 20%;
-  right: 20%;
+}
+
+.up {
+  transform: translateY(-160%);
+}
+.down {
+  bottom: -25%;
+  z-index: 1;
+}
+.left {
+  transform: translate(-65%, -30%);
+}
+.right {
+  transform: translate(65%, -30%);
+  z-index: 1;
 }

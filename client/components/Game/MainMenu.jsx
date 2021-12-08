@@ -1,29 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
-const MainMenu = () => {
+import Title from './Title'
+
+const MainMenu = (props) => {
+  const menuHandle = (link) => {
+    props.history.push(link)
+  }
 
   return (
     <>
-      <div className='menu-logo'>
-        <img className='logo-img' src='images/Logo.png' alt='Dungeon Slither'></img>
-      </div>
+      <Title />
       <div className='menu-buttons'>
-        <Link to='/levels' ><button className='menu-button'>
-          <div className='button-inner'>
-            <p className='button-text'>LEVELS</p>
-          </div>
-        </button></Link>
-        <Link to='/editor' ><button className='menu-button'>
-          <div className='button-inner'>
-            <p className='button-text'>EDITOR</p>
-          </div>
-        </button></Link>
-        <Link to='/store' ><button className='menu-button'>
-          <div className='button-inner'>
-            <p className='button-text'>STORE</p>
-          </div>
-        </button></Link>
+        <button className='menu-button' onClick={() => menuHandle('/levels')}>Play!</button>
+        <button className='menu-button' onClick={() => menuHandle('/editor')}>Level Editor</button>
+        <button className='menu-button' onClick={() => menuHandle('/store')}>Store</button>
       </div>
     </>
 
