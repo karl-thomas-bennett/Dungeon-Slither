@@ -3,6 +3,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { useDispatch, useSelector } from 'react-redux'
 import { setGameState, setTileContent } from '../../actions/game'
 import { handleKeys, handleDrop } from '../../utils/keyEventFunctions'
+import GameOver from './GameOver'
 import Tile from './Tile'
 
 function Board(props) {
@@ -102,7 +103,7 @@ function Board(props) {
       const newHeadTile = tiles.find(tile => tile.coord === newSnake[0].join())
       const heads = newSnake.filter(segment => segment[0] === newSnake[0][0] && segment[1] === newSnake[0][1])
       if (newHeadTile === undefined || newHeadTile.content[0] !== 'floor' || heads.length > 1) {
-        dispatch(setGameState('lost - concussion is death, who knew?'))
+        dispatch(setGameState('lost - Concussion is death, who knew?'))
       } else {
         setSnake(newSnake)
         if (holding === 'none' && newHeadTile.content.includes('food')) {
@@ -151,6 +152,7 @@ function Board(props) {
         }
       } />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}
+      {gameState !== 'playing' && <GameOver gameState={gameState} />}
     </div>
   )
 }
