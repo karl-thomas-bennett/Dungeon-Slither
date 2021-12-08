@@ -8,7 +8,7 @@ const BoardDesign = (props) => {
 
   return (
     <>
-      <div className='board' style ={{ gridTemplateColumns: `repeat(20, 1fr)` }}>
+      <div className='board-editor' style ={{ gridTemplateColumns: `repeat(20, 1fr)` }}>
         {board.map(tile => 
           <TileDesign key={tile.coord} id={tile.coord} content={tile.content} />
         )}

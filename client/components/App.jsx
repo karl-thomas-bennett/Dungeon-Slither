@@ -17,7 +17,7 @@ function App() {
       <ImageLoader />
       <Switch>
         <Route exact path='/' component={MainMenu} />
-        <Route exact path='/game' component={Board} />
+        <Route exact path='/game/:id' component={Board} />
         <Route exact path='/levels' component={LevelMenu} />
         <Route exact path='/editor' component={LevelEditor} />
         <Route exact path='/rules' component={Rules} />

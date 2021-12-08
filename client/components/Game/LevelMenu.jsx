@@ -20,7 +20,7 @@ const LevelMenu = (props) => {
     dispatch(setGameState('playing'))
     dispatch(setDirection(level.direction))
     dispatch(setTilesState(prepForJS(level.tiles)))
-    props.history.push('/game')
+    props.history.push(`/game/${level.id}`)
   }
 
   const refreshHandle = () => {
