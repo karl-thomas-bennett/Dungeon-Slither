@@ -46,8 +46,23 @@ function Board(props) {
 
   useEffect(() => {
     handleSnakeDangerously(direction)
-    setLastDirection(direction)
   }, [toggle])
+
+  const handleArrows = (key, e = null) => {
+    if (gameState === 'playing') {
+      setDirection(handleKeys(key, e, lastDirection))
+      setToggle(toggle => !toggle)
+      setJumpToggle(jumpToggle => !jumpToggle)
+      clearInterval(timer)
+    }
+  }
+
+  const handleSpace = () => {
+    if (holding !== 'none') {
+      setHolding('none')
+      dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+    }
+  }
 
   const handleItems = (items, tile) => {
     for (let item of items) {
@@ -116,6 +131,7 @@ function Board(props) {
     } else if (gameState === 'won') {
       setSnake(newSnake)
     }
+    setLastDirection(direction)
   }
 
   useEffect(() => {
@@ -156,7 +172,18 @@ function Board(props) {
         </div>
       </div>
       <div className='border-game'></div>
-      <div className='game-menu'></div>
+      <div className='game-menu'>
+        <button class='game-back' onClick={() => props.history.push('/levels')}>Level Menu</button>
+        <div className='game-controls'>
+          <div></div>
+          <button className='game-key' onClick={() => handleArrows('w')}>W</button>
+          <div></div>
+          <button className='game-key' onClick={() => handleArrows('a')}>A</button>
+          <button className='game-key' onClick={() => handleArrows('s')}>S</button>
+          <button className='game-key' onClick={() => handleArrows('d')}>D</button>
+          <button className='game-key key-space' onClick={handleSpace}>SPACE</button>
+        </div>
+      </div>
     </>
   )
 }
