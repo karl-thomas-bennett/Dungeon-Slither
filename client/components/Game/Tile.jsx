@@ -62,6 +62,28 @@ const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
       if (gameState === 'won') {
         setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
       }
+      if (gameState === 'playing') {
+        setClosed(true)
+        const coordX = Number(coord.split(',')[1])
+        const coordY = Number(coord.split(',')[0])
+        const upper = Math.sqrt(tiles.length)
+        if (coordX === 0) { // Left door
+          setTileImg('door-left')
+        }
+        if (coordX === (upper - 1)) { // Right door
+          setTileImg('door-right')
+        }
+        if (coordY === 0 || coordY === (upper - 1)) { // Top or bottom door
+          setTileImg('door-up')
+        }
+      }
+    }
+    if (content[0] === 'door-in') {
+      if (gameState === 'playing') {
+        setCount(0)
+        setClosed(false)
+        setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
+      }
     }
   }, [gameState])
 
@@ -78,13 +100,13 @@ const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
             const coordY = Number(coord.split(',')[0])
             const upper = Math.sqrt(tiles.length)
             if (coordX === 0) { // Left door
-              setTileImg('ffff')
+              setTileImg('door-left')
             }
             if (coordX === (upper - 1)) { // Right door
-              setTileImg('ffff')
+              setTileImg('door-right')
             }
             if (coordY === 0 || coordY === (upper - 1)) { // Top or bottom door
-              setTileImg('ffff')
+              setTileImg('door-up')
             }
           }
         }
@@ -102,13 +124,13 @@ const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
       const coordY = Number(coord.split(',')[0])
       const upper = Math.sqrt(tiles.length)
       if (coordX === 0) { // Left door
-        setTileImg('ffff')
+        setTileImg('door-left')
       }
       if (coordX === (upper - 1)) { // Right door
-        setTileImg('ffff')
+        setTileImg('door-right')
       }
       if (coordY === 0 || coordY === (upper - 1)) { // Top or bottom door
-        setTileImg('ffff')
+        setTileImg('door-up')
       }
     } else {
       const coordX = Number(coord.split(',')[1])
