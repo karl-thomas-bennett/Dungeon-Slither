@@ -7,27 +7,31 @@ import Cart from './Cart'
 import ProductList from './ProductList'
 import OrderList from './OrderList'
 import WaitIndicator from './WaitIndicator'
+import Nav from './Nav'
 
 function Store() {
   return (
-    <>
-      <Route path='/store' component={Header} />
-      <Route path='/store' component={ErrorMessage} />
-      <Route exact path='/store' render={({ history }) => {
-        return <ProductList history={history}>
-          <WaitIndicator />
-        </ProductList>
-      }} />
-      <Route path='/store/cart' render={({ history }) => {
-        return <Cart history={history}>
-          <WaitIndicator />
-        </Cart>
-      }} />
-      <Route path='/store/orders' render={() => {
-        return <OrderList>
-          <WaitIndicator />
-        </OrderList>
-      }} />
+    < >
+      <div className = 'store-wraper'>
+        <Route path='/store' component={Header} />
+        <Route path='/store' component={Nav} />
+        <Route path='/store' component={ErrorMessage} />
+        <Route exact path='/store' render={({ history }) => {
+          return <ProductList history={history}>
+            <WaitIndicator />
+          </ProductList>
+        }} />
+        <Route path='/store/cart' render={({ history }) => {
+          return <Cart history={history}>
+            <WaitIndicator />
+          </Cart>
+        }} />
+        <Route path='/store/orders' render={() => {
+          return <OrderList>
+            <WaitIndicator />
+          </OrderList>
+        }} />
+      </div>
     </>
   )
 }

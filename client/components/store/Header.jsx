@@ -1,19 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 function Header () {
   return (
     <>
-      <nav className='nav'>
-        <Link to='/store'>Shop</Link>
-        <Link to='/store/cart'>Cart</Link>
-        <Link to='/store/orders'>My Orders</Link>
-      </nav>
-      <h1>
-        <span className='fa fa-leaf' aria-hidden='true' />
-        {' '}Dungeon Cralwer Merch{' '}
-        <span className='fa fa-leaf' aria-hidden='true' />
-      </h1>
+      <div className = 'store-header'>
+        <div className = 'store-logo'>
+          <h1>
+            {/* <span className='store-title' aria-hidden='true' /> */}
+            {' '}Dungeon Slither Merch{' '}
+            {/* <span className='store-title' aria-hidden='true' /> */}
+          </h1>
+
+        </div>
+      </div>
     </>
   )
 }

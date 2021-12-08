@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { addOrder } from '../../actions/orders'
 
 import CartItem from './CartItem'
@@ -20,7 +20,7 @@ function Cart (props) {
 
   return cart.length
     ? (
-      <div className='cart'>
+      <div className='store-cart'>
         <table>
           <thead>
             <tr>
@@ -39,20 +39,32 @@ function Cart (props) {
             })}
           </tbody>
         </table>
-        <p className='actions'>
-          <Link to='/store'>Continue shopping</Link>
-          <span>
-            {children} { /* Holds the WaitIndicator */}
-            <button
-              className='button-primary'
-              onClick={submitCart}>
-              Place Order
-            </button>
-          </span>
-        </p>
+        
+        {/* <div className='store-actions'>
+          <div className='continue-shopping'> */}
+            <p>
+              <NavLink to='/store'><ul>Continue shopping</ul></NavLink>
+            </p>
+          {/* </div>
+          
+          <div className='place-order'> */}
+            <span>
+              {children}
+              <button
+                className='button-primary'
+                onClick={submitCart}>
+                Place Order
+              </button>
+            </span>          
+          {/* </div>  
+
+        </div> */}
       </div>
     )
-    : <p>Your cart is empty! Start shopping <Link to='/store'>here</Link></p>
+    : 
+    <div className = 'empty-cart'>
+      <p>Your cart is empty! Start shopping <NavLink to='/store'>here</NavLink></p>
+    </div>
 }
 
 export default Cart
