@@ -144,8 +144,10 @@ function Board(props) {
       } />
       <KeyboardEventHandler handleKeys={['space']} onKeyEvent={
         () => {
-          setHolding('none')
-          dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+          if (holding !== 'none') {
+            setHolding('none')
+            dispatch(setTileContent(handleDrop(tiles.find(tile => tile.coord === snake[0].join()), tiles, holding, snake)))
+          }
         }
       } />
       {tiles.map(tile => <Tile key={tile.coord} id={tile.coord} content={tile.content} snake={snake} item={holding} direction={lastDirection} />)}

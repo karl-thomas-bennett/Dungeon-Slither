@@ -15,8 +15,9 @@ const SnakeSegment = ({ snake, pos, snakeItem, direction }) => {
 
   return (
     <>
-      <img src={'/segments/' + image.name + '.png'} className={className} />
       {snakeItem !== 'none' && i === 0 && <Item item={snakeItem} direction={direction} />}
+      <img src={'/segments/' + image.name + '.png'} className={className} />
+
     </>
   )
 }
