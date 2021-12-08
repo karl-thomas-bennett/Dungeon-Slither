@@ -21,7 +21,7 @@ function Order (props) {
       <p className='p name'>Order #{id}</p>
       <p className='p order-details'>Order placed: {createdAt}</p>
       <p className='p order-details'>
-        <span className={`fa fa-circle ${status}`} aria-hidden="true"></span>
+        <span className={`fa fa-circle${status}`} aria-hidden="true"></span>
         Status: {status}
       </p>
       <table>
