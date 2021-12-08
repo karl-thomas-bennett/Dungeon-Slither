@@ -70,7 +70,18 @@ const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
         } else {
           if (closed === false) {
             setClosed(true)
-            setTileImg('ffff')
+            const coordX = Number(coord.split(',')[1])
+            const coordY = Number(coord.split(',')[0])
+            const upper = Math.sqrt(tiles.length)
+            if (coordX === 0) { // Left door
+              setTileImg('ffff')
+            }
+            if (coordX === (upper - 1)) { // Right door
+              setTileImg('ffff')
+            }
+            if (coordY === 0 || coordY === (upper - 1)) { // Top or bottom door
+              setTileImg('ffff')
+            }
           }
         }
       }
@@ -83,7 +94,18 @@ const Tile = ({ toggle, content, snake, id, direction, item: snakeItem }) => {
     } else if (terrain === 'door-in') {
       setTileImg(floorArr.map(a => 'floor-' + a)[Math.floor(Math.random() * floorArr.length)])
     } else if (terrain === 'door-out') {
-      setTileImg('ffff')
+      const coordX = Number(coord.split(',')[1])
+      const coordY = Number(coord.split(',')[0])
+      const upper = Math.sqrt(tiles.length)
+      if (coordX === 0) { // Left door
+        setTileImg('ffff')
+      }
+      if (coordX === (upper - 1)) { // Right door
+        setTileImg('ffff')
+      }
+      if (coordY === 0 || coordY === (upper - 1)) { // Top or bottom door
+        setTileImg('ffff')
+      }
     } else {
       const coordX = Number(coord.split(',')[1])
       const coordY = Number(coord.split(',')[0])
