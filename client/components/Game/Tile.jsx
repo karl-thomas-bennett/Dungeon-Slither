@@ -31,7 +31,7 @@ const Tile = ({ content, snake, id, direction, item: snakeItem }) => {
         dispatch(setTileContent(id, content.map(item => item === 'guard' ? 'empty' : item)))
       }
       if (snake[0][0] === pos[0] && snake[0][1] === pos[1]) {
-        dispatch(setGameState('lost - killed by guard'))
+        dispatch(setGameState('lost - The guard absolutely slaughtered you'))
       }
     }
     if (content.includes('door-out')) {
