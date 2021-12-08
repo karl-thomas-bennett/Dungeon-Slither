@@ -56,8 +56,6 @@ export const fetchOrders = () =>{
     dispatch(fetchOrdersPending())
     return getOrders()
     .then ((orders) =>{
-      console.log ("dispatching orders")
-      console.log ( 'actions', orders)
 
       dispatch(fetchOrdersSuccess(orders))
       return null

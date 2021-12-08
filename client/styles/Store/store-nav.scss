@@ -1,0 +1,23 @@
+.store-nav {
+   display: flex;
+   // background-color: yellow;
+   vertical-align: bottom;
+   float: left;
+   color: black;
+   padding: 12px;
+   text-decoration: none;
+   font-size: 18px;
+   line-height: 25px;
+   border-radius: 4px;
+   background-color: grey;
+   width: 100%;
+   justify-content: center;
+   li {
+     display:inline-block;
+     color: whitesmoke;
+     margin: 0 0.8rem;
+     font-size: 1.3rem;
+     position: relative;
+     list-style: none;
+   }
+  }
